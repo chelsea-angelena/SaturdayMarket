@@ -36,3 +36,4 @@ firebase.js
 environment.js
 ./environment.js
 .env
+config/firebaseConfig.js
