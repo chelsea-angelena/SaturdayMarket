@@ -11,7 +11,7 @@ web-build/
 
 # macOS
 GoogleService-Info.plist
-
+google-services.json
 .DS_Store
 app.json
 config
