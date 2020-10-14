@@ -9,8 +9,9 @@ export default function MainNavigator({ navigation, user }) {
 	console.log(user, 'userMainNav');
 	return (
 		<Stack.Navigator>
-			<Stack.Screen name='PostForm' component={PostForm} />
 			<Stack.Screen name='Home' component={Home} />
+			<Stack.Screen name='PostForm' component={PostForm} />
+
 			<Stack.Screen name='ProfileScreen' component={ProfileScreen} />
 			<Stack.Screen name='EditProfile' component={EditProfile} />
 		</Stack.Navigator>

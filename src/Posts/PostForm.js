@@ -1,20 +1,37 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {
 	FormInput,
 	ErrorMessage,
 	FormButton,
 } from '../Account/ProfileFormComponents';
-import { CheckBox } from 'react-native-elements';
+import AppText from '../Atoms/Text';
+import { CheckBox, Overlay, Icon } from 'react-native-elements';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { UserContext } from '../../Main';
+import Modal from 'modal-react-native-web';
 import FormImagePicker from '../Atoms/FormImagePicker';
 import * as db from '../config/firebaseConfig';
 import useLocation from '../hooks/useLocation';
 import CategoryModal from './Categories';
+import colors from '../styles/colors';
+
+const validationSchema = Yup.object().shape({
+	title: Yup.string()
+		.min(2, 'Too Short!')
+		.max(50, 'Too Long!')
+		.required('Required'),
+	description: Yup.string()
+		.min(2, 'Too Short!')
+		.max(50, 'Too Long!')
+		.required('Required'),
+	price: Yup.number().required('Required'),
+	images: Yup.array().min(1).required('Required'),
+	categories: Yup.object().required,
+});
 
 export default function PostForm() {
 	const [visible, setVisible] = useState(false);
@@ -70,7 +87,10 @@ export default function PostForm() {
 					description: '',
 					category: '',
 					price: '',
-					// location,
+					location: {
+						latitude: '',
+						longitude: '',
+					},
 					phoneNumber: '',
 					altEmail: '',
 					images: [],
@@ -99,8 +119,6 @@ export default function PostForm() {
 							onChangeText={handleChange('title')}
 							placeholder='Enter a Title'
 							autoCapitalize='none'
-							iconName='ios-contact'
-							iconColor='#2C384A'
 							onBlur={handleBlur('title')}
 						/>
 						<ErrorMessage errorValue={touched.title && errors.title} />
@@ -109,49 +127,53 @@ export default function PostForm() {
 							value={values.description}
 							onChangeText={handleChange('description')}
 							placeholder='Description'
-							iconName='ios-mail'
-							iconColor='#2C384A'
+							multiline={true}
 							onBlur={handleBlur('description')}
 						/>
 						<ErrorMessage
 							errorValue={touched.description && errors.description}
 						/>
-
-						<CategoryModal
-							toggleOverlay={toggleOverlay}
-							chooseCategory={updateCategory}
+						<Icon
+							type='material-community'
+							name='chevron-down'
+							color={colors.onyx}
+							onPress={toggleOverlay}
 						/>
-
+						<Overlay
+							overlayStyle={{ height: 350 }}
+							isVisible={visible}
+							onBackdropPress={toggleOverlay}
+							style={styles.overlay}
+							ModalComponent={Modal}
+						>
+							<Icon
+								type='material-community'
+								name='chevron-down'
+								color={colors.onyx}
+								onPress={toggleOverlay}
+							/>
+							<CategoryModal
+								toggleOverlay={toggleOverlay}
+								updateCategory={setCategory}
+							/>
+						</Overlay>
+						
+						<AppText style={styles.text}>Choose a category</AppText>
 						<FormInput
 							name='category'
 							value={values.category}
 							onChangeText={handleChange('category')}
-							placeholder='Choose a category'
+							placeholder={category}
 							autoCapitalize='none'
-							iconName='ios-contact'
-							iconColor='#2C384A'
 							onBlur={handleBlur('category')}
 						/>
 						<ErrorMessage errorValue={touched.category && errors.category} />
-						<FormInput
-							name='phoneNumber'
-							value={values.phoneNumber}
-							onChangeText={handleChange('phoneNumber')}
-							placeholder='(optional....) Enter a contact phone number'
-							iconName='ios-call'
-							iconColor='#2C384A'
-							onBlur={handleBlur('phoneNumber')}
-						/>
-						<ErrorMessage
-							errorValue={touched.phoneNumber && errors.phoneNumber}
-						/>
+
 						<FormInput
 							name='price'
 							value={values.price}
 							onChangeText={handleChange('price')}
-							placeholder='Price'
-							iconName='ios-call'
-							iconColor='#2C384A'
+							placeholder='$ 0.00    (enter price)'
 							onBlur={handleBlur('price')}
 						/>
 						<ErrorMessage errorValue={touched.price && errors.price} />
@@ -171,6 +193,18 @@ export default function PostForm() {
 							onBlur={handleBlur('altEmail')}
 						/>
 						<ErrorMessage errorValue={touched.altEmail && errors.altEmail} />
+						<FormInput
+							name='phoneNumber'
+							value={values.phoneNumber}
+							onChangeText={handleChange('phoneNumber')}
+							placeholder='(optional....) Enter a contact phone number'
+							iconName='ios-call'
+							iconColor='#2C384A'
+							onBlur={handleBlur('phoneNumber')}
+						/>
+						<ErrorMessage
+							errorValue={touched.phoneNumber && errors.phoneNumber}
+						/>
 						<View style={styles.buttonContainer}>
 							<FormButton
 								buttonType='outline'
@@ -200,5 +234,8 @@ const styles = StyleSheet.create({
 	// },
 	buttonContainer: {
 		margin: 25,
+	},
+	text: {
+		alignSelf: 'center',
 	},
 });

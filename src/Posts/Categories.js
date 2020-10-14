@@ -4,8 +4,12 @@ import { Overlay, ListItem, Icon } from 'react-native-elements';
 import Modal from 'modal-react-native-web';
 import colors from '../styles/colors';
 
-export default function CategoryModal({ toggleOverlay, chooseCategory }) {
-	const { visible } = toggleOverlay;
+export default function CategoryModal({
+	toggleOverlay,
+	updateCategory,
+	setVisible,
+}) {
+	console.log(toggleOverlay, 'toggleOverlaty');
 
 	const categories = [
 		{
@@ -64,47 +68,31 @@ export default function CategoryModal({ toggleOverlay, chooseCategory }) {
 		},
 	];
 	return (
-		<View>
-			<Overlay
-				overlayStyle={{ height: 350 }}
-				isVisible={visible}
-				onBackdropPress={toggleOverlay}
-				style={styles.overlay}
-				ModalComponent={Modal}
-			>
+		<FlatList
+			data={categories}
+			keyExtractor={categories.label}
+			numColumns={3}
+			renderItem={({ item }) => (
 				<Icon
 					type='material-community'
-					name='chevron-down'
-					color={colors.onyx}
-					onPress={toggleOverlay}
+					color='white'
+					name={item.icon}
+					size={56}
+					label={item.label}
+					onPress={() => {
+						toggleOverlay();
+						updateCategory(item.label);
+					}}
+					style={{
+						flexDirection: 'row',
+						backgroundColor: item.backgroundColor,
+						borderRadius: 56,
+						margin: 8,
+						padding: 8,
+					}}
 				/>
-				<FlatList
-					data={categories}
-					keyExtractor={categories.label}
-					numColumns={3}
-					renderItem={({ item }) => (
-						<Icon
-							type='material-community'
-							color='white'
-							name={item.icon}
-							size={56}
-							label={item.label}
-							onPress={() => {
-								toggleOverlay();
-								chooseCategory(item.label);
-							}}
-							style={{
-								flexDirection: 'row',
-								backgroundColor: item.backgroundColor,
-								borderRadius: 56,
-								margin: 8,
-								padding: 8,
-							}}
-						/>
-					)}
-				/>
-			</Overlay>
-		</View>
+			)}
+		/>
 	);
 }
 
