@@ -1,7 +1,7 @@
 // import React, { useState, useEffect } from 'react';
 // import { ActivityIndicator, StyleSheet, View, Text } from 'react-native';
 // import MapView, { Marker } from 'react-native-maps';
-// import useLocation from '../Hooks/useLocation.js';
+// // import useLocation from '../hooks/useLocation.js';
 
 // export default function Map({ location }) {
 // 	// let [location, error] = useLocation();

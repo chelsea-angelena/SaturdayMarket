@@ -30,7 +30,7 @@ export default function ProfileScreen({ user }) {
 	}
 	return (
 		<View>
-			<Image source={user.photoURL} style={styles.image} alt='profileImage' />
+			<Image source={{uri: user.photoURL}} style={styles.image} alt='profileImage' />
 			<Text>{userId}</Text>
 			<Text>{user.displayName}</Text>
 			<Text>{user.email}</Text>

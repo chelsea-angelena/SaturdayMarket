@@ -18,6 +18,7 @@ import * as db from '../config/firebaseConfig';
 import useLocation from '../hooks/useLocation';
 import CategoryModal from './Categories';
 import colors from '../styles/colors';
+// import UserMap from './UserMap';
 
 const validationSchema = Yup.object().shape({
 	title: Yup.string()
@@ -144,7 +145,7 @@ export default function PostForm() {
 							isVisible={visible}
 							onBackdropPress={toggleOverlay}
 							style={styles.overlay}
-							ModalComponent={Modal}
+							// ModalComponent={Modal}
 						>
 							<Icon
 								type='material-community'
@@ -157,7 +158,7 @@ export default function PostForm() {
 								updateCategory={setCategory}
 							/>
 						</Overlay>
-						
+
 						<AppText style={styles.text}>Choose a category</AppText>
 						<FormInput
 							name='category'

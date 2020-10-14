@@ -10,6 +10,10 @@ export default function Home(props) {
 	const user = useContext(UserContext);
 	console.log(user);
 	const navigation = useNavigation();
+
+	const goToPostsList = () => {
+		navigation.navigate('PostsListScreen');
+	};
 	const signOut = async () => {
 		await db.signOut();
 	};
@@ -22,6 +26,7 @@ export default function Home(props) {
 	return (
 		<View style={StyleSheet.view}>
 			<ProfileScreen user={user} />
+			<Button onPress={goToPostsList} title='Posts' />
 			<Button onPress={goToProfileForm} title='Edit Profile' />
 			<Button onPress={goToPostForm} title='Create A New Post' />
 			<Button onPress={signOut} title='SignOut' />

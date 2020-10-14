@@ -33,7 +33,7 @@ const SignInScreen = () => {
 			const response = await db.loginWithEmail(email, password);
 			if (response.user) {
 				setUser(response);
-				navigation.navigate('MainNavigator', { screen: 'Home' });
+				navigation.navigate('AuthApp', { screen: 'Home' });
 			}
 		} catch (error) {
 			console.error(error);
