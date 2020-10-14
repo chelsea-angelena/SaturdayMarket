@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+
 import { useNavigation } from '@react-navigation/native';
 import * as db from '../config/firebaseConfig.js';
 import { UserContext } from '../../Main';
+import { StyleSheet, Text, Button, View } from 'react-native';
 import ProfileScreen from './ProfileScreen';
 import PostForm from '../Posts';
 export default function Home(props) {
@@ -19,7 +20,7 @@ export default function Home(props) {
 		navigation.navigate('PostForm');
 	};
 	return (
-		<View>
+		<View style={StyleSheet.view}>
 			<ProfileScreen user={user} />
 			<Button onPress={goToProfileForm} title='Edit Profile' />
 			<Button onPress={goToPostForm} title='Create A New Post' />
@@ -28,3 +29,9 @@ export default function Home(props) {
 		</View>
 	);
 }
+
+const styles = StyleSheet.create({
+	view: {
+		flex: 1,
+	},
+});

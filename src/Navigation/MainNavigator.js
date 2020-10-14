@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack'; // import { View, Text } from 'react-native';
 // import * as db from '../config/firebaseConfig.js';
 import { Home, ProfileScreen, EditProfile } from '../Account';
-import { PostForm } from '../Posts';
+import { PostForm, PostsListScreen } from '../Posts';
 const Stack = createStackNavigator();
 
 export default function MainNavigator({ navigation, user }) {

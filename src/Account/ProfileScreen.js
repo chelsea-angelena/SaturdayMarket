@@ -41,7 +41,7 @@ export default function ProfileScreen({ user }) {
 
 const styles = StyleSheet.create({
 	image: {
-		wifth: 200,
+		width: 200,
 		height: 200,
 	},
 });
