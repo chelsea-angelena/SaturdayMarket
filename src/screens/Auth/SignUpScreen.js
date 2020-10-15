@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import * as db from '../config/firebaseConfig';
+import * as db from '../../config/firebaseConfig';
 import FormInput from './FormInput';
 import FormButton from './FormButton';
 import { Formik } from 'formik';

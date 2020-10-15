@@ -6,14 +6,15 @@ import { Ionicons } from '@expo/vector-icons';
 import { FormInput, ErrorMessage, FormButton } from './ProfileFormComponents';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { UserContext } from '../../Main';
-import FormImagePicker from '../Atoms/FormImagePicker';
-import * as db from '../config/firebaseConfig';
+import { UserContext } from '../../Navigation/Main';
+import FormImagePicker from '../../Atoms/FormImagePicker';
+import * as db from '../../config/firebaseConfig';
+import { useNavigation } from '@react-navigation/native';
 
 export default function EditProfile() {
 	const [submitting, setSubmitting] = useState(false);
 	const user = useContext(UserContext);
-
+	const navigation = useNavigation();
 	const submitProfileForm = async (values) => {
 		const { images, displayName, altEmail } = values;
 		try {
@@ -22,6 +23,7 @@ export default function EditProfile() {
 			console.error(error);
 		} finally {
 			setSubmitting(false);
+			navigation.navigate('Home');
 		}
 	};
 

@@ -6,19 +6,20 @@ import {
 	FormInput,
 	ErrorMessage,
 	FormButton,
-} from '../Account/ProfileFormComponents';
-import AppText from '../Atoms/Text';
+} from '../../screens/Account/ProfileFormComponents';
+import AppText from '../../Atoms/Text';
 import { CheckBox, Overlay, Icon } from 'react-native-elements';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { UserContext } from '../../Main';
+import { UserContext } from '../../Navigation/Main';
 import Modal from 'modal-react-native-web';
-import FormImagePicker from '../Atoms/FormImagePicker';
-import * as db from '../config/firebaseConfig';
-import useLocation from '../hooks/useLocation';
+import FormImagePicker from '../../Atoms/FormImagePicker';
+import * as db from '../../config/firebaseConfig';
+import useLocation from '../../hooks/useLocation';
 import CategoryModal from './Categories';
-import colors from '../styles/colors';
-// import UserMap from './UserMap';
+import colors from '../../styles/colors';
+import UserMap from './UserMap';
+import { useNavigation } from '@react-navigation/native';
 
 const validationSchema = Yup.object().shape({
 	title: Yup.string()
@@ -40,6 +41,7 @@ export default function PostForm() {
 	const [submitting, setSubmitting] = useState(false);
 	const [checked, setChecked] = useState(false);
 	const [location] = useLocation();
+	const navigation = useNavigation();
 	console.log(location, 'location');
 	const { latitude, longitude } = location;
 	console.log(latitude);
@@ -62,21 +64,17 @@ export default function PostForm() {
 	let userId = user.uid;
 
 	const submitPostForm = async (values) => {
-		const {
-			images,
-			title,
-			description,
-			location,
-			phoneNumber,
-			altEmail,
-		} = values;
+		const { images, title, description, phoneNumber, altEmail } = values;
 		const { displayName, email, photoURL } = user;
 		try {
-			const response = await db.createPost(values, user, userId);
+			const response = await db.createPost(values, user, location, userId);
 		} catch (error) {
 			console.error(error);
 		} finally {
 			setSubmitting(false);
+			navigation.navigate('PostsStack', {
+				screen: 'PostsListScreen',
+			});
 		}
 	};
 
@@ -227,12 +225,8 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#fff',
-		marginTop: 50,
+		marginTop: 24,
 	},
-	// logoContainer: {
-	// 	marginBottom: 15,
-	// 	alignItems: 'center',
-	// },
 	buttonContainer: {
 		margin: 25,
 	},

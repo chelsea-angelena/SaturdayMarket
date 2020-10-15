@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import FormInput from './FormInput';
 import FormButton from './FormButton';
 import ErrorMessage from './ErrorMessage';
-import * as db from '../config/firebaseConfig';
+import * as db from '../../config/firebaseConfig';
 import { useNavigation } from '@react-navigation/native';
 
 const validationSchema = Yup.object().shape({

@@ -6,17 +6,19 @@ import { useNavigation } from '@react-navigation/native';
 const PostListItem = ({
 	item,
 	title,
+	created,
 	description,
 	price,
-	created,
 	category,
 	image,
 	postedBy,
 	altEmail,
 	email,
 	phoneNumber,
+	authorID,
 	userPhoto,
 }) => {
+	console.log(authorID, 'authorID');
 	let Date = created;
 	let dateArr = Date.toString().split(' ');
 	let splicedDate = dateArr.splice(0, 4);

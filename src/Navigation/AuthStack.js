@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
-import { SignInScreen, SignUpScreen } from '../Auth';
+import { SignInScreen, SignUpScreen } from '../screens/Auth';
 
 export default function AuthStack() {
 	return (

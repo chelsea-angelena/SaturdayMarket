@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Overlay, ListItem, Icon } from 'react-native-elements';
 import Modal from 'modal-react-native-web';
-import colors from '../styles/colors';
+import colors from '../../styles/colors';
 
 export default function CategoryModal({
 	toggleOverlay,

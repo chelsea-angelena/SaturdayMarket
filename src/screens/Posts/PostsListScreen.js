@@ -1,12 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { UserContext } from '../../Main';
-import { StyleSheet, FlatList, View, Text } from 'react-native';
-import * as db from '../config/firebaseConfig';
+import { UserContext } from '../../Navigation/Main';
+import { ScrollView, StyleSheet, FlatList, View, Text } from 'react-native';
+import * as db from '../../config/firebaseConfig';
 import useSWR from 'swr';
-import PostListItem from './ListItem';
+import PostListItem from './PostListItem';
 
 export default function PostsListScreen(props) {
+	// const [posts, setPosts] = useState([]);
+	const user = useContext(UserContext);
+
 	const { data: posts, error } = useSWR('posts', db.getCollection);
+
+	console.log(posts, 'posts');
+
 	if (error) {
 		return <Text>Error...</Text>;
 	}
@@ -17,7 +23,7 @@ export default function PostsListScreen(props) {
 		return <Text>No Lists....</Text>;
 	}
 	return (
-		<View>
+		<ScrollView>
 			<FlatList
 				data={posts}
 				renderItem={({ item }) => {
@@ -35,11 +41,12 @@ export default function PostsListScreen(props) {
 							email={item.userData.email}
 							phoneNumber={item.userData.phoneNumber}
 							userPhoto={item.userData.photoURL}
+							authorID={item.authorID}
 						/>
 					);
 				}}
 			/>
-		</View>
+		</ScrollView>
 	);
 }
 

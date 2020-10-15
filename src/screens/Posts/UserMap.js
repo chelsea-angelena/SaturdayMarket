@@ -6,7 +6,7 @@
 // export default function Map({ location }) {
 // 	// let [location, error] = useLocation();
 // 	console.log(location);
-// 	const { latitude, longitude } = location;
+
 // 	if (!location) {
 // 		return <ActivityIndicator size='large' />;
 // 	}
