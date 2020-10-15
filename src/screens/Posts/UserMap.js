@@ -2,7 +2,7 @@
 // import { ActivityIndicator, StyleSheet, View, Text } from 'react-native';
 // import MapView, { Marker } from 'react-native-maps';
 // // import useLocation from '../hooks/useLocation.js';
-
+// import Screen from '../../Atoms/Screen'
 // export default function Map({ location }) {
 // 	// let [location, error] = useLocation();
 // 	console.log(location);
@@ -11,6 +11,7 @@
 // 		return <ActivityIndicator size='large' />;
 // 	}
 // 	return (
+// <Screen>
 // 		<MapView
 // 			loadingEnabled={true}
 // 			showsUserLocation={true}
@@ -37,6 +38,7 @@
 // 				description='Location of user'
 // 			/>
 // 		</MapView>
+// </Screen>
 // 	);
 // }
 

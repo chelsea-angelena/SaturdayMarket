@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { FlatList, View, StyleSheet, Text, Image } from 'react-native';
 import * as db from '../../config/firebaseConfig';
 import { UserContext } from '../../Navigation/Main';
 import {
@@ -14,26 +14,29 @@ import {
 import colors from '../../styles/colors';
 import MaterialCommunityIcon from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import MyPostsList from './MyPostsList';
+import Screen from '../../Atoms/Screen';
 
 export default function ProfileScreen({ user, signOut, route }) {
+	const [myPosts, setMyPosts] = useState([]);
 
 	let userId = user.uid;
 	const navigation = useNavigation();
 
-	// const getProfileData = async () => {
-	// 	let result = await db.getProfile(userId);
-	// 	console.log(result, 'result');
-	// };
+	const getMyPosts = async () => {
+		let result = await db.getUserPosts(userId);
+		setMyPosts(result);
+	};
 
-	// useEffect(() => {
-	// 	getProfileData();
-	// }, []);
+	useEffect(() => {
+		getMyPosts();
+	}, []);
 
 	if (!userId) {
 		return <Text>Loading....</Text>;
 	}
 	return (
-		<View>
+		<Screen>
 			<Card
 				wrapperStyle={{ alignItems: 'center', justifyContent: 'space-evenly' }}
 			>
@@ -49,7 +52,7 @@ export default function ProfileScreen({ user, signOut, route }) {
 				<Divider />
 				<Image source={{ uri: 'https://picsum.photos/200/300' }} />
 				<ListItem.Title style={{ marginTop: 24, marginBottom: 24 }}>
-					My Posts{' '}
+					<MyPostsList myPosts={myPosts} />
 				</ListItem.Title>
 				<Divider />
 
@@ -67,7 +70,7 @@ export default function ProfileScreen({ user, signOut, route }) {
 					onPress={signOut}
 				/>
 			</Card>
-		</View>
+		</Screen>
 	);
 }
 

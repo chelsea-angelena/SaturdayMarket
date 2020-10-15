@@ -2,9 +2,10 @@ import React, { useContext, useState, useEffect } from 'react';
 import { ScrollView, Image, Text, View, StyleSheet } from 'react-native';
 import { Icon, Card, ListItem, Divider, Avatar } from 'react-native-elements';
 import colors from '../../styles/colors';
-import UserMap from '../Posts/UserMap';
+// import UserMap from '../Posts/UserMap';
 import * as db from '../../config/firebaseConfig';
 import { UserContext } from '../../Navigation/Main';
+import Screen from '../../Atoms/Screen';
 
 const ListItemDetails = ({ navigation, route }, props) => {
 	const { item } = route.params;
@@ -34,11 +35,10 @@ const ListItemDetails = ({ navigation, route }, props) => {
 
 	const savePost = async () => {
 		let result = await db.savePost(postId, userId);
-		result ? setIsDisabled(true) : null;
 	};
 
 	return (
-		<ScrollView style={styles.view}>
+		<Screen style={styles.view}>
 			<Card
 				containerStyle={{ marginTop: 64, alignSelf: 'center' }}
 				wrapperStyle={{ alignItems: 'center' }}
@@ -98,7 +98,7 @@ const ListItemDetails = ({ navigation, route }, props) => {
 				</View>
 			</Card>
 			{/* <UserMap location={(latitude, longitude)} /> */}
-		</ScrollView>
+		</Screen>
 	);
 };
 
@@ -111,8 +111,6 @@ const styles = StyleSheet.create({
 	profileCard: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		width: 200,
-		height: 400,
 	},
 	avatar: {
 		alignSelf: 'center',

@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, FlatList, View, Text } from 'react-native';
 import * as db from '../../config/firebaseConfig';
 import useSWR from 'swr';
 import PostListItem from './PostListItem';
-
+import Screen from '../../Atoms/Screen';
 export default function PostsListScreen(props) {
 	// const [posts, setPosts] = useState([]);
 	const user = useContext(UserContext);
@@ -23,7 +23,7 @@ export default function PostsListScreen(props) {
 		return <Text>No Lists....</Text>;
 	}
 	return (
-		<ScrollView>
+		<Screen>
 			<FlatList
 				data={posts}
 				renderItem={({ item }) => {
@@ -46,7 +46,7 @@ export default function PostsListScreen(props) {
 					);
 				}}
 			/>
-		</ScrollView>
+		</Screen>
 	);
 }
 
@@ -54,8 +54,7 @@ const styles = StyleSheet.create({
 	view: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		width: 300,
-		height: 400,
+		
 	},
 	text: {
 		color: 'black',

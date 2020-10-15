@@ -18,8 +18,9 @@ import * as db from '../../config/firebaseConfig';
 import useLocation from '../../hooks/useLocation';
 import CategoryModal from './Categories';
 import colors from '../../styles/colors';
-import UserMap from './UserMap';
+// import UserMap from './UserMap';
 import { useNavigation } from '@react-navigation/native';
+import Screen from '../../Atoms/Screen';
 
 const validationSchema = Yup.object().shape({
 	title: Yup.string()
@@ -79,146 +80,152 @@ export default function PostForm() {
 	};
 
 	return (
-		<View style={styles.container}>
-			<Formik
-				initialValues={{
-					title: '',
-					description: '',
-					category: '',
-					price: '',
-					location: {
-						latitude: '',
-						longitude: '',
-					},
-					phoneNumber: '',
-					altEmail: '',
-					images: [],
-				}}
-				onSubmit={(values, { resetForm }) => {
-					submitPostForm(values);
-					resetForm({ values: '' });
-				}}
-			>
-				{({
-					handleChange,
-					resetForm,
-					values,
-					handleSubmit,
-					errors,
-					isValid,
-					touched,
-					handleBlur,
-					isSubmitting,
-				}) => (
-					<KeyboardAwareScrollView>
-						<FormImagePicker style={styles.picker} type='Blob' name='images' />
-						<FormInput
-							name='title'
-							value={values.title}
-							onChangeText={handleChange('title')}
-							placeholder='Enter a Title'
-							autoCapitalize='none'
-							onBlur={handleBlur('title')}
-						/>
-						<ErrorMessage errorValue={touched.title && errors.title} />
-						<FormInput
-							name='description'
-							value={values.description}
-							onChangeText={handleChange('description')}
-							placeholder='Description'
-							multiline={true}
-							onBlur={handleBlur('description')}
-						/>
-						<ErrorMessage
-							errorValue={touched.description && errors.description}
-						/>
-						<Icon
-							type='material-community'
-							name='chevron-down'
-							color={colors.onyx}
-							onPress={toggleOverlay}
-						/>
-						<Overlay
-							overlayStyle={{ height: 350 }}
-							isVisible={visible}
-							onBackdropPress={toggleOverlay}
-							style={styles.overlay}
-							// ModalComponent={Modal}
-						>
+		<Screen>
+			<View style={styles.container}>
+				<Formik
+					initialValues={{
+						title: '',
+						description: '',
+						category: '',
+						price: '',
+						location: {
+							latitude: '',
+							longitude: '',
+						},
+						phoneNumber: '',
+						altEmail: '',
+						images: [],
+					}}
+					onSubmit={(values, { resetForm }) => {
+						submitPostForm(values);
+						resetForm({ values: '' });
+					}}
+				>
+					{({
+						handleChange,
+						resetForm,
+						values,
+						handleSubmit,
+						errors,
+						isValid,
+						touched,
+						handleBlur,
+						isSubmitting,
+					}) => (
+						<KeyboardAwareScrollView>
+							<FormImagePicker
+								style={styles.picker}
+								type='Blob'
+								name='images'
+							/>
+							<FormInput
+								name='title'
+								value={values.title}
+								onChangeText={handleChange('title')}
+								placeholder='Enter a Title'
+								autoCapitalize='none'
+								onBlur={handleBlur('title')}
+							/>
+							<ErrorMessage errorValue={touched.title && errors.title} />
+							<FormInput
+								name='description'
+								value={values.description}
+								onChangeText={handleChange('description')}
+								placeholder='Description'
+								multiline={true}
+								onBlur={handleBlur('description')}
+							/>
+							<ErrorMessage
+								errorValue={touched.description && errors.description}
+							/>
 							<Icon
 								type='material-community'
 								name='chevron-down'
 								color={colors.onyx}
 								onPress={toggleOverlay}
 							/>
-							<CategoryModal
-								toggleOverlay={toggleOverlay}
-								updateCategory={setCategory}
-							/>
-						</Overlay>
+							<Overlay
+								overlayStyle={{ height: 350 }}
+								isVisible={visible}
+								onBackdropPress={toggleOverlay}
+								style={styles.overlay}
+								// ModalComponent={Modal}
+							>
+								<Icon
+									type='material-community'
+									name='chevron-down'
+									color={colors.onyx}
+									onPress={toggleOverlay}
+								/>
+								<CategoryModal
+									toggleOverlay={toggleOverlay}
+									updateCategory={setCategory}
+								/>
+							</Overlay>
 
-						<AppText style={styles.text}>Choose a category</AppText>
-						<FormInput
-							name='category'
-							value={values.category}
-							onChangeText={handleChange('category')}
-							placeholder={category}
-							autoCapitalize='none'
-							onBlur={handleBlur('category')}
-						/>
-						<ErrorMessage errorValue={touched.category && errors.category} />
-
-						<FormInput
-							name='price'
-							value={values.price}
-							onChangeText={handleChange('price')}
-							placeholder='$ 0.00    (enter price)'
-							onBlur={handleBlur('price')}
-						/>
-						<ErrorMessage errorValue={touched.price && errors.price} />
-						<CheckBox
-							title='Include a Map with your location?'
-							status={checked ? 'checked' : 'unchecked'}
-							onPress={() => setChecked(!checked)}
-						/>
-						{checked ? <UserMap location={location} /> : null}
-						<FormInput
-							name='altEmail'
-							value={values.altEmail}
-							onChangeText={handleChange('altEmail')}
-							placeholder='(optional...) Enter an alternative email for buyers to contaxt you'
-							iconName='ios-mail'
-							iconColor='#2C384A'
-							onBlur={handleBlur('altEmail')}
-						/>
-						<ErrorMessage errorValue={touched.altEmail && errors.altEmail} />
-						<FormInput
-							name='phoneNumber'
-							value={values.phoneNumber}
-							onChangeText={handleChange('phoneNumber')}
-							placeholder='(optional....) Enter a contact phone number'
-							iconName='ios-call'
-							iconColor='#2C384A'
-							onBlur={handleBlur('phoneNumber')}
-						/>
-						<ErrorMessage
-							errorValue={touched.phoneNumber && errors.phoneNumber}
-						/>
-						<View style={styles.buttonContainer}>
-							<FormButton
-								buttonType='outline'
-								onPress={handleSubmit}
-								title='Submit Post'
-								buttonColor='#039BE5'
-								disabled={!isValid || isSubmitting}
-								loading={isSubmitting}
+							<AppText style={styles.text}>Choose a category</AppText>
+							<FormInput
+								name='category'
+								value={values.category}
+								onChangeText={handleChange('category')}
+								placeholder={category}
+								autoCapitalize='none'
+								onBlur={handleBlur('category')}
 							/>
-						</View>
-						<ErrorMessage errorValue={errors.general} />
-					</KeyboardAwareScrollView>
-				)}
-			</Formik>
-		</View>
+							<ErrorMessage errorValue={touched.category && errors.category} />
+
+							<FormInput
+								name='price'
+								value={values.price}
+								onChangeText={handleChange('price')}
+								placeholder='$ 0.00    (enter price)'
+								onBlur={handleBlur('price')}
+							/>
+							<ErrorMessage errorValue={touched.price && errors.price} />
+							<CheckBox
+								title='Include a Map with your location?'
+								status={checked ? 'checked' : 'unchecked'}
+								onPress={() => setChecked(!checked)}
+							/>
+							{checked ? <UserMap location={location} /> : null}
+							<FormInput
+								name='altEmail'
+								value={values.altEmail}
+								onChangeText={handleChange('altEmail')}
+								placeholder='(optional...) Enter an alternative email for buyers to contaxt you'
+								iconName='ios-mail'
+								iconColor='#2C384A'
+								onBlur={handleBlur('altEmail')}
+							/>
+							<ErrorMessage errorValue={touched.altEmail && errors.altEmail} />
+							<FormInput
+								name='phoneNumber'
+								value={values.phoneNumber}
+								onChangeText={handleChange('phoneNumber')}
+								placeholder='(optional....) Enter a contact phone number'
+								iconName='ios-call'
+								iconColor='#2C384A'
+								onBlur={handleBlur('phoneNumber')}
+							/>
+							<ErrorMessage
+								errorValue={touched.phoneNumber && errors.phoneNumber}
+							/>
+							<View style={styles.buttonContainer}>
+								<FormButton
+									buttonType='outline'
+									onPress={handleSubmit}
+									title='Submit Post'
+									buttonColor='#039BE5'
+									disabled={!isValid || isSubmitting}
+									loading={isSubmitting}
+								/>
+							</View>
+							<ErrorMessage errorValue={errors.general} />
+						</KeyboardAwareScrollView>
+					)}
+				</Formik>
+			</View>
+		</Screen>
 	);
 }
 const styles = StyleSheet.create({

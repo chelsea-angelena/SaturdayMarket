@@ -11,10 +11,25 @@ export default function TabNavigator({ navigation, user }) {
 	console.log(user, 'userMainNav');
 	return (
 		<Tab.Navigator
-			barStyle={{ backgroundColor: '#694fad' }}
+			activeTintColor={colors.snow}
+			inactiveTintColor={colors.white}
+			barStyle={{
+				backgroundColor: colors.slate,
+			}}
 			initialRoute='PostsStack'
 			screenOptions={{ headerShown: false }}
 		>
+			<Tab.Screen
+				name='SavedPostsStack'
+				component={SavedPostsStack}
+				options={{
+					title: 'Saved Posts',
+					tabBarLabel: 'Saved Posts',
+					tabBarIcon: ({ color }) => (
+						<MaterialCommunityIcons name='heart' color={color} size={26} />
+					),
+				}}
+			/>
 			<Tab.Screen
 				name='PostsStack'
 				component={PostsStack}
@@ -52,18 +67,6 @@ export default function TabNavigator({ navigation, user }) {
 					tabBarLabel: 'Account',
 					tabBarIcon: ({ color }) => (
 						<MaterialCommunityIcons name='account' color={color} size={26} />
-					),
-				}}
-			/>
-
-			<Tab.Screen
-				name='SavedPostsStack'
-				component={SavedPostsStack}
-				options={{
-					title: 'Saved Posts',
-					tabBarLabel: 'Saved Posts',
-					tabBarIcon: ({ color }) => (
-						<MaterialCommunityIcons name='heart' color={color} size={26} />
 					),
 				}}
 			/>

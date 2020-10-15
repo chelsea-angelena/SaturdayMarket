@@ -5,6 +5,7 @@ import { UserContext } from '../../Navigation/Main';
 import { StyleSheet, Text, View } from 'react-native';
 import ProfileScreen from './ProfileScreen';
 import { ListItem, Divider, Button, Icon } from 'react-native-elements';
+import Screen from '../../Atoms/Screen';
 import colors from '../../styles/colors';
 
 export default function Home(props) {
@@ -14,9 +15,11 @@ export default function Home(props) {
 	};
 
 	return (
-		<View style={StyleSheet.view}>
-			<ProfileScreen user={user} />
-		</View>
+		<Screen>
+			<View style={styles.view}>
+				<ProfileScreen user={user} />
+			</View>
+		</Screen>
 	);
 }
 
