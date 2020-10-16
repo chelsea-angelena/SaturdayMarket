@@ -17,11 +17,7 @@ const PostsStack = ({ navigation }) => {
 		<Stack.Navigator>
 			<Stack.Screen name='PostsListScreen' component={PostsListScreen} />
 			<Stack.Screen name='PostListItem' component={PostListItem} />
-			<Stack.Screen
-				name='ListItemDetails'
-				component={ListItemDetails}
-				// userId={user.uid}
-			/>
+			<Stack.Screen name='ListItemDetails' component={ListItemDetails} />
 			<Stack.Screen name='UserProfileScreen' component={UserProfileScreen} />
 		</Stack.Navigator>
 	);

@@ -2,18 +2,17 @@ import React, { useContext, useState, useEffect } from 'react';
 import { ScrollView, Image, Text, View, StyleSheet } from 'react-native';
 import { Icon, Card, ListItem, Divider, Avatar } from 'react-native-elements';
 import colors from '../../styles/colors';
-import UserMap from '../Posts/UserMap';
+// import UserMap from '../Posts/UserMap';
 import * as db from '../../config/firebaseConfig';
 import { UserContext } from '../../Navigation/Main';
 import Screen from '../../Atoms/Screen';
 
 const SavedPostDetails = ({ navigation, route }, props) => {
-	const [isDisabled, setIsDisabled] = useState(true);
-	console.log(route.params);
-	let { postId } = route.params;
-	console.log(postId);
-	let { id, authorId, created, post, userData } = postId;
-	console.log(post, userData);
+	// const [isDisabled, setIsDisabled] = useState(true);
+	console.log(route.params, 'params');
+	let { item } = route.params;
+	let { created, post, userData, authorID } = item;
+
 	let {
 		latitude,
 		longitude,
@@ -23,16 +22,17 @@ const SavedPostDetails = ({ navigation, route }, props) => {
 		image,
 		price,
 	} = post;
-	let { displayName, photoURL, email, altEmail, phoneNumber } = userData;
-	let Date = postId.created.toDate();
+	const { displayName, email, altEmail, phoneNumber, photoURL } = userData;
+
+	let Date = created.toDate();
 	let dateArr = Date.toString();
 	let dateSPlit = dateArr.split(' ');
 	let splicedDate = dateSPlit.splice(0, 4);
 
-	const savePost = async () => {
-		//deletePost
-	};
-
+	// const savePost = async () => {
+	// 	deletePost;
+	// };
+	let profileID = authorID;
 	return (
 		<Screen style={styles.view}>
 			<Card
@@ -51,9 +51,9 @@ const SavedPostDetails = ({ navigation, route }, props) => {
 				/>
 				<Card.Divider />
 				<Icon
-					disbaled={isDisabled}
-					disbaledStyle={{ color: colors.white }}
-					onPress={savePost}
+					// disbaled={isDisabled}
+					// disbaledStyle={{ color: colors.white }}
+					// onPress={savePost}
 					type='material-community'
 					name='heart'
 					color={colors.medGrey}
@@ -88,12 +88,12 @@ const SavedPostDetails = ({ navigation, route }, props) => {
 						color={colors.onyx}
 						size={24}
 						onPress={() =>
-							navigation.navigate('UserProfileScreen', { authorID })
+							navigation.navigate('UserProfileScreen', { profileID })
 						}
 					/>
 				</View>
 			</Card>
-			<UserMap location={(latitude, longitude)} />
+			{/* <UserMap location={(latitude, longitude)} /> */}
 		</Screen>
 	);
 };

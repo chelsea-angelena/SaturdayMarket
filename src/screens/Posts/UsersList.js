@@ -25,31 +25,29 @@ export default function UsersList({ authorID }) {
 		return <Text>Loading...</Text>;
 	}
 	return (
-		<View>
-			<FlatList
-				data={userPosts}
-				keyExtractor={(userPosts) => userPosts.id}
-				renderItem={({ item }) => {
-					return (
-						<UserPostItem
-							item={item}
-							title={item.post.title}
-							description={item.post.description}
-							price={item.post.price}
-							created={item.created.toDate()}
-							category={item.post.category}
-							image={item.post.image}
-							postedBy={item.userData.displayName}
-							altEmail={item.userData.altEmail}
-							email={item.userData.email}
-							phoneNumber={item.userData.phoneNumber}
-							userPhoto={item.userData.photoURL}
-							authorID={item.authorID}
-						/>
-					);
-				}}
-			/>
-		</View>
+		<FlatList
+			data={userPosts}
+			keyExtractor={(userPosts) => userPosts.id}
+			renderItem={({ item }) => {
+				return (
+					<UserPostItem
+						item={item}
+						title={item.post.title}
+						description={item.post.description}
+						price={item.post.price}
+						created={item.created.toDate()}
+						category={item.post.category}
+						image={item.post.image}
+						postedBy={item.userData.displayName}
+						altEmail={item.userData.altEmail}
+						email={item.userData.email}
+						phoneNumber={item.userData.phoneNumber}
+						userPhoto={item.userData.photoURL}
+						authorID={item.authorID}
+					/>
+				);
+			}}
+		/>
 	);
 }
 
@@ -83,38 +81,45 @@ const UserPostItem = ({
 	};
 
 	return (
-		<Card containerStyle={{ width: '100%' }} wrapperStyle={styles.card}>
-			<View style={styles.row}>
-				<Card.Image
-					source={{ uri: image }}
-					alt='Posted Image'
-					style={styles.image}
-				/>
+		<Card
+			containerStyle={{ width: 400 }}
+			wrapperStyle={{
+				flexDirection: 'row',
+				justifyContent: 'space-between',
+				// marginLeft: 16,
+				// marginRight: 16,
+				alignItems: 'center',
+			}}
+		>
+			<Card.Image
+				source={{ uri: image }}
+				alt='Posted Image'
+				style={styles.image}
+			/>
 
-				<View style={styles.column}>
-					<Card.Title style={styles.text}>
-						{title} ${price}
-					</Card.Title>
-					<Card.Divider />
-					<ListItem.Subtitle style={styles.date}>
-						{splicedDate[0]} {splicedDate[1]} {splicedDate[2]}at: {time} PST
-					</ListItem.Subtitle>
-				</View>
-				<Icon
-					type='material-community'
-					name='chevron-right'
-					size={24}
-					color='black'
-					onPress={goToDetails}
-				/>
+			<View style={styles.column}>
+				<Card.Title style={styles.text}>
+					{title} ${price}
+				</Card.Title>
+				<Card.Divider />
+				<ListItem.Subtitle style={styles.date}>
+					{splicedDate[0]} {splicedDate[1]} {splicedDate[2]}at: {time} PST
+				</ListItem.Subtitle>
 			</View>
+			<Icon
+				type='material-community'
+				name='chevron-right'
+				size={24}
+				color='black'
+				onPress={goToDetails}
+				style={{ margin: 0, padding: 0 }}
+			/>
 		</Card>
 	);
 };
 const styles = StyleSheet.create({
 	view: {
-		width: 200,
-		height: 400,
+		// height: 400,
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',
@@ -140,7 +145,7 @@ const styles = StyleSheet.create({
 
 	column: {
 		flexDirection: 'column',
-		width: 200,
+		// width: 200,
 		alignItems: 'center',
 	},
 	posted: {

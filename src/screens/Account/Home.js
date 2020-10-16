@@ -5,7 +5,7 @@ import { UserContext } from '../../Navigation/Main';
 import { StyleSheet, Text, View } from 'react-native';
 import ProfileScreen from './ProfileScreen';
 import { ListItem, Divider, Button, Icon } from 'react-native-elements';
-import Screen from '../../Atoms/Screen';
+import SafeScreen from '../../Atoms/SafeScreen';
 import colors from '../../styles/colors';
 
 export default function Home(props) {
@@ -14,17 +14,6 @@ export default function Home(props) {
 		await db.signOut();
 	};
 
-	return (
-		<Screen>
-			<View style={styles.view}>
-				<ProfileScreen user={user} />
-			</View>
-		</Screen>
-	);
+	return <ProfileScreen user={user} />;
 }
 
-const styles = StyleSheet.create({
-	view: {
-		flex: 1,
-	},
-});

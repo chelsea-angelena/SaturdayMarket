@@ -8,7 +8,7 @@ import {
 	FormButton,
 } from '../../screens/Account/ProfileFormComponents';
 import AppText from '../../Atoms/Text';
-import { CheckBox, Overlay, Icon } from 'react-native-elements';
+import { CheckBox, Overlay, Icon, Card } from 'react-native-elements';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { UserContext } from '../../Navigation/Main';
@@ -80,39 +80,45 @@ export default function PostForm() {
 	};
 
 	return (
-		<Screen>
-			<View style={styles.container}>
-				<Formik
-					initialValues={{
-						title: '',
-						description: '',
-						category: '',
-						price: '',
-						location: {
-							latitude: '',
-							longitude: '',
-						},
-						phoneNumber: '',
-						altEmail: '',
-						images: [],
-					}}
-					onSubmit={(values, { resetForm }) => {
-						submitPostForm(values);
-						resetForm({ values: '' });
-					}}
-				>
-					{({
-						handleChange,
-						resetForm,
-						values,
-						handleSubmit,
-						errors,
-						isValid,
-						touched,
-						handleBlur,
-						isSubmitting,
-					}) => (
-						<KeyboardAwareScrollView>
+		<Formik
+			initialValues={{
+				title: '',
+				description: '',
+				category: '',
+				price: '',
+				location: {
+					latitude: '',
+					longitude: '',
+				},
+				phoneNumber: '',
+				altEmail: '',
+				images: [],
+			}}
+			onSubmit={(values, { resetForm }) => {
+				submitPostForm(values);
+				resetForm({ values: '' });
+			}}
+		>
+			{({
+				handleChange,
+				resetForm,
+				values,
+				handleSubmit,
+				errors,
+				isValid,
+				touched,
+				handleBlur,
+				isSubmitting,
+			}) => (
+				<KeyboardAwareScrollView>
+					<View style={styles.view}>
+						<Card
+							wrapperStyle={{
+								alignItems: 'center',
+								alignSelf: 'center',
+							}}
+							containerStyle={{ width: 400, alignItems: 'center' }}
+						>
 							<FormImagePicker
 								style={styles.picker}
 								type='Blob'
@@ -221,14 +227,19 @@ export default function PostForm() {
 								/>
 							</View>
 							<ErrorMessage errorValue={errors.general} />
-						</KeyboardAwareScrollView>
-					)}
-				</Formik>
-			</View>
-		</Screen>
+						</Card>
+					</View>
+				</KeyboardAwareScrollView>
+			)}
+		</Formik>
 	);
 }
 const styles = StyleSheet.create({
+	view: {
+		alignItems: 'center',
+		width: 400,
+		alignSelf: 'center',
+	},
 	container: {
 		flex: 1,
 		backgroundColor: '#fff',

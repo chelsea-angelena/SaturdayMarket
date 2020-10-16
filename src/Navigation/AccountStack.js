@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home, ProfileScreen, EditProfile } from '../screens/Account';
-
+import ListItemDetails from '../screens/Posts/ListItemDetails';
+import UserProfileScreen from '../screens/Posts/UserProfileScreen';
 const Stack = createStackNavigator();
 
 const AccountStack = ({ navigation }) => {
@@ -10,6 +11,8 @@ const AccountStack = ({ navigation }) => {
 			<Stack.Screen name='Home' component={Home} />
 			<Stack.Screen name='ProfileScreen' component={ProfileScreen} />
 			<Stack.Screen name='EditProfile' component={EditProfile} />
+			<Stack.Screen name='ListItemDetails' component={ListItemDetails} />
+
 		</Stack.Navigator>
 	);
 };

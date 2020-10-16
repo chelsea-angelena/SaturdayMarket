@@ -19,10 +19,10 @@ import UsersList from './UsersList';
 
 export default function UserProfileScreen(props, { route, navigation }) {
 	// const [userData, setUserData] = useState(null);
+	const { profileID } = props.route.params;
+	console.log(profileID, 'userprofile route params');
 
-	let { authorID } = props.route.params;
-	let userId = authorID;
-	const { data: userData, error } = useSWR(userId, db.getUserProfile);
+	const { data: userData, error } = useSWR(profileID, db.getUserProfile);
 
 	console.log(userData);
 	// const getProfileData = async () => {
@@ -70,10 +70,14 @@ export default function UserProfileScreen(props, { route, navigation }) {
 				<Card.Title style={{ marginTop: 24 }}>
 					{userData.displayName}
 				</Card.Title>
-				<ListItem.Subtitle>{userData.email}</ListItem.Subtitle>
-				<ListItem.Subtitle>{userData.phoneNumber}</ListItem.Subtitle>
+				<ListItem.Subtitle style={{ padding: 8 }}>
+					{userData.email}
+				</ListItem.Subtitle>
+				<ListItem.Subtitle style={{ padding: 8 }}>
+					{userData.phoneNumber}
+				</ListItem.Subtitle>
 				<Divider />
-				<UsersList authorID={authorID} />
+				<UsersList authorID={profileID} />
 			</Card>
 		</View>
 	);

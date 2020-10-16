@@ -9,12 +9,10 @@ import Screen from '../../Atoms/Screen';
 
 const ListItemDetails = ({ navigation, route }, props) => {
 	const { item } = route.params;
-
 	const user = useContext(UserContext);
 	const userId = user.uid;
-	console.log(user, 'details list user');
 	const [isDisabled, setIsDisabled] = useState(false);
-	let { post, userData, authorID } = item;
+	let { post, userData, authorID, created } = item;
 	let {
 		latitude,
 		longitude,
@@ -27,7 +25,10 @@ const ListItemDetails = ({ navigation, route }, props) => {
 
 	let { altEmail, email, displayName, phoneNumber, photoURL } = userData;
 
-	let Date = item.created.toDate();
+	console.log(authorID);
+	let profileID = authorID;
+
+	let Date = created.toDate();
 	let dateArr = Date.toString();
 	let dateSPlit = dateArr.split(' ');
 	let splicedDate = dateSPlit.splice(0, 4);
@@ -40,70 +41,89 @@ const ListItemDetails = ({ navigation, route }, props) => {
 	return (
 		<Screen style={styles.view}>
 			<Card
-				containerStyle={{ marginTop: 64, alignSelf: 'center' }}
-				wrapperStyle={{ alignItems: 'center' }}
+				containerStyle={{ alignSelf: 'center' }}
+				wrapperStyle={{ alignItems: 'center', justifyContent: 'center' }}
 			>
-				<Card.Title style={styles.titleText}>{title}</Card.Title>
-				<Text style={styles.contentText}>{description}</Text>
-				<ListItem.Subtitle>{price}</ListItem.Subtitle>
-
-				<Text style={styles.contentText}>{category}</Text>
-				<Image
-					source={{ uri: image }}
-					alt=''
-					style={{ width: 200, height: 200 }}
-				/>
-				<Card.Divider />
-				<Icon
-					disbaled={isDisabled}
-					disbaledStyle={{ color: colors.white }}
-					onPress={savePost}
-					type='material-community'
-					name='heart'
-					color={colors.medGrey}
-				/>
-			</Card>
-			<Card style={styles.profileCard}>
-				<Avatar
-					source={{ uri: photoURL }}
-					size='large'
-					rounded
-					activeOpacity={0.7}
-					containerStyle={{ alignSelf: 'center' }}
-				/>
-				<Card.Title>{displayName}</Card.Title>
-				<ListItem.Subtitle style={{ alignSelf: 'center' }}>
-					{altEmail}
-				</ListItem.Subtitle>
-				<ListItem.Subtitle style={{ alignSelf: 'center' }}>
-					{email}
-				</ListItem.Subtitle>
-				<ListItem.Subtitle>{phoneNumber}</ListItem.Subtitle>
-
-				<ListItem.Subtitle style={{ alignSelf: 'center' }}>
-					{splicedDate[0]} {splicedDate[1]} {splicedDate[2]}
-				</ListItem.Subtitle>
-				<Card.Divider style={{ marginTop: 24 }} />
-				<View style={styles.row}>
-					<Text>See More Posts</Text>
-					<Icon
-						type='material-community'
-						name='chevron-right'
-						color={colors.onyx}
-						size={24}
-						onPress={() =>
-							navigation.navigate('UserProfileScreen', { authorID })
-						}
+				<Card
+					wrapperStyle={{
+						alignItems: 'center',
+						justifyContent: 'center',
+						width: 300,
+					}}
+				>
+					<Image
+						source={{ uri: image }}
+						alt=''
+						resizeMode='cover'
+						style={{ minWidth: 320, height: 200 }}
 					/>
-				</View>
+					<View style={styles.notrow}>
+						<Card.Title style={styles.titleText}>{title}</Card.Title>
+						<ListItem.Subtitle style={styles.subtitleText}>
+							$ {price}
+						</ListItem.Subtitle>
+					</View>
+					<Card.Divider />
+					<Text style={styles.contentText}>{description}</Text>
+
+					<Text style={styles.contentText}>{category}</Text>
+					<Icon
+						disbaled={isDisabled}
+						disbaledStyle={{ color: colors.white }}
+						onPress={savePost}
+						type='material-community'
+						name='heart'
+						color={colors.medGrey}
+					/>
+				</Card>
+				<Card wrapperStyle={{ width: 300 }}>
+					<Avatar
+						source={{ uri: photoURL }}
+						size='large'
+						rounded
+						activeOpacity={0.7}
+						containerStyle={{ alignSelf: 'center' }}
+					/>
+					<Card.Title>{displayName}</Card.Title>
+					<ListItem.Subtitle style={{ alignSelf: 'center' }}>
+						{altEmail}
+					</ListItem.Subtitle>
+					<ListItem.Subtitle style={{ alignSelf: 'center' }}>
+						{email}
+					</ListItem.Subtitle>
+					<ListItem.Subtitle style={{ alignSelf: 'center' }}>
+						{phoneNumber}
+					</ListItem.Subtitle>
+
+					<ListItem.Subtitle style={{ alignSelf: 'center', paddingTop: 16 }}>
+						{splicedDate[0]} {splicedDate[1]} {splicedDate[2]}
+					</ListItem.Subtitle>
+
+					<Divider style={{ marginTop: 24 }} />
+					<View style={styles.row}>
+						<Text>See More Posts</Text>
+						<Icon
+							type='material-community'
+							name='chevron-right'
+							color={colors.onyx}
+							size={24}
+							onPress={() =>
+								navigation.navigate('UserProfileScreen', { profileID })
+							}
+						/>
+					</View>
+				</Card>
+				{/* <UserMap location={(latitude, longitude)} /> */}
 			</Card>
-			{/* <UserMap location={(latitude, longitude)} /> */}
 		</Screen>
 	);
 };
 
 export default ListItemDetails;
 const styles = StyleSheet.create({
+	view: {
+		width: '100%',
+	},
 	text: {
 		color: 'black',
 		alignSelf: 'center',
@@ -111,22 +131,38 @@ const styles = StyleSheet.create({
 	profileCard: {
 		alignItems: 'center',
 		justifyContent: 'center',
+		width: '100%',
 	},
 	avatar: {
 		alignSelf: 'center',
 	},
 	contentText: {
 		fontSize: 14,
+		paddingTop: 4,
+		paddingBottom: 8,
+	},
+	notrow: {
+		flexDirection: 'column',
+		fontSize: 12,
+		alignItems: 'center',
+		justifyContent: 'center',
+		padding: 16,
+	},
+	row: {
+		flexDirection: 'row',
+		fontSize: 12,
+		alignItems: 'center',
+		justifyContent: 'center',
+		padding: 16,
+		width: '100%',
 	},
 	titleText: {
 		fontSize: 14,
 	},
+	subtitleText: {
+		fontWeight: 'bold',
+	},
 	card: {
 		marginTop: 32,
-	},
-	row: {
-		flexDirection: 'row',
-		alignSelf: 'center',
-		fontSize: 12,
 	},
 });

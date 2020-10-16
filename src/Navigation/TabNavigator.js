@@ -20,29 +20,6 @@ export default function TabNavigator({ navigation, user }) {
 			screenOptions={{ headerShown: false }}
 		>
 			<Tab.Screen
-				name='SavedPostsStack'
-				component={SavedPostsStack}
-				options={{
-					title: 'Saved Posts',
-					tabBarLabel: 'Saved Posts',
-					tabBarIcon: ({ color }) => (
-						<MaterialCommunityIcons name='heart' color={color} size={26} />
-					),
-				}}
-			/>
-			<Tab.Screen
-				name='PostsStack'
-				component={PostsStack}
-				user={user}
-				options={{
-					title: 'Posts',
-					tabBarLabel: 'Posts',
-					tabBarIcon: ({ color }) => (
-						<MaterialCommunityIcons name='tag-heart' color={color} size={26} />
-					),
-				}}
-			/>
-			<Tab.Screen
 				name='PostForm'
 				component={PostForm}
 				options={{
@@ -57,6 +34,18 @@ export default function TabNavigator({ navigation, user }) {
 					),
 				}}
 			/>
+
+			<Tab.Screen
+				name='SavedPostsStack'
+				component={SavedPostsStack}
+				options={{
+					title: 'Saved Posts',
+					tabBarLabel: 'Saved Posts',
+					tabBarIcon: ({ color }) => (
+						<MaterialCommunityIcons name='heart' color={color} size={26} />
+					),
+				}}
+			/>
 			<Tab.Screen
 				name='AccountStack'
 				activeColor={colors.white}
@@ -67,6 +56,18 @@ export default function TabNavigator({ navigation, user }) {
 					tabBarLabel: 'Account',
 					tabBarIcon: ({ color }) => (
 						<MaterialCommunityIcons name='account' color={color} size={26} />
+					),
+				}}
+			/>
+			<Tab.Screen
+				name='PostsStack'
+				component={PostsStack}
+				user={user}
+				options={{
+					title: 'Posts',
+					tabBarLabel: 'Posts',
+					tabBarIcon: ({ color }) => (
+						<MaterialCommunityIcons name='tag-heart' color={color} size={26} />
 					),
 				}}
 			/>
