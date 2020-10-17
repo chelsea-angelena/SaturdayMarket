@@ -15,23 +15,23 @@ const SavedPostsStack = ({ navigation }) => {
 			<Stack.Screen
 				name='SavedPosts'
 				component={SavedPosts}
-				headerTitle={{ title: 'Saved' }}
+				options={{ title: 'Saved' }}
 			/>
 			<Stack.Screen
 				name='SavedPostItem'
 				component={SavedPostItem}
-				headerTitle={{ title: 'Saved' }}
+				options={{ title: 'Saved' }}
 			/>
 			<Stack.Screen
 				name='ListItemDetails'
 				component={ListItemDetails}
-				headerTitle={{ title: 'Saved' }}
+				options={{ title: 'Saved' }}
 			/>
 
 			<Stack.Screen
 				name='UserProfileScreen'
 				component={UserProfileScreen}
-				headerTitle={{ title: 'Saved' }}
+				options={{ title: 'Saved' }}
 			/>
 		</Stack.Navigator>
 	);

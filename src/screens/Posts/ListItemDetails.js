@@ -26,7 +26,7 @@ const ListItemDetails = ({ navigation, route }, props) => {
 
 	let { altEmail, email, displayName, phoneNumber, photoURL } = userData;
 
-	console.log(authorID);
+
 	let profileID = authorID;
 
 	let Date = created.toDate();
@@ -38,7 +38,7 @@ const ListItemDetails = ({ navigation, route }, props) => {
 	const checkIfSaved = async () => {
 		try {
 			let response = await db.checkIfSaved(postId, userId);
-			console.log('reponse', response);
+
 		} catch (e) {
 			console.log(e);
 		}
@@ -185,4 +185,3 @@ const styles = StyleSheet.create({
 		height: 400,
 	},
 });
-   

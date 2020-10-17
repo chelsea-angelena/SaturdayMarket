@@ -14,7 +14,7 @@ export default function TabNavigator({ navigation, user }) {
 			activeTintColor={colors.snow}
 			inactiveTintColor={colors.white}
 			barStyle={{
-				backgroundColor: 'hsl(42, 100%, 50%)',
+				backgroundColor: colors.drab,
 			}}
 			initialRoute='PostsStack'
 			screenOptions={{ headerShown: false }}

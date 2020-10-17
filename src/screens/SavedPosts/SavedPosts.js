@@ -24,7 +24,7 @@ export default function SavedPosts() {
 
 	const getSavedList = async () => {
 		let result = await db.getSavedList(userId);
-		console.log(result);
+
 		let postId = result.map((result) => result.postId);
 		setPostedId(postId);
 		postId ? dataResult() : null;
@@ -39,7 +39,7 @@ export default function SavedPosts() {
 			console.log(e);
 		}
 	};
-	
+
 	useEffect(() => {
 		getSavedList();
 	}, []);

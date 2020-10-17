@@ -40,7 +40,7 @@ const SignInScreen = () => {
 			}
 		} catch (error) {
 			console.error(error);
-			// setFieldError('general', error.message);
+			setSubmitting(false);
 		} finally {
 			setSubmitting(false);
 		}

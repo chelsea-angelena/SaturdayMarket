@@ -23,17 +23,17 @@ const PostsStack = ({ navigation }) => {
 			<Stack.Screen
 				name='PostListItem'
 				component={PostListItem}
-				headerTitle={{ title: 'Posts' }}
+				options={{ title: 'Posts' }}
 			/>
 			<Stack.Screen
 				name='ListItemDetails'
 				component={ListItemDetails}
-				headerTitle={{ title: 'Posts' }}
+				options={{ title: 'Posts' }}
 			/>
 			<Stack.Screen
 				name='UserProfileScreen'
 				component={UserProfileScreen}
-				headerTitle={{ title: 'Profile' }}
+				options={{ title: 'Profile' }}
 			/>
 		</Stack.Navigator>
 	);
