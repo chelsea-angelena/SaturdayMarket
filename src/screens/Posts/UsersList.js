@@ -84,7 +84,7 @@ const UserPostItem = ({
 
 	return (
 		<Card
-			containerStyle={{ width: 400 }}
+			containerStyle={{ width: 300 }}
 			wrapperStyle={{
 				flexDirection: 'row',
 				justifyContent: 'space-between',

@@ -19,7 +19,7 @@ import useLocation from '../../hooks/useLocation';
 import CategoryModal from './Categories';
 import colors from '../../styles/colors';
 import Logo from '../../Atoms/Logo';
-// import UserMap from './UserMap';
+ import UserMap from './UserMap';
 import { useNavigation } from '@react-navigation/native';
 import Screen from '../../Atoms/Screen';
 

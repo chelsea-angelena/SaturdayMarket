@@ -8,7 +8,6 @@ import colors from '../styles/colors';
 const Tab = createMaterialBottomTabNavigator();
 
 export default function TabNavigator({ navigation, user }) {
-	console.log(user, 'userMainNav');
 	return (
 		<Tab.Navigator
 			activeTintColor={colors.snow}

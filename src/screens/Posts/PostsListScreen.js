@@ -60,6 +60,7 @@ export default function PostsListScreen(props) {
 						<>
 							<PostListItem
 								item={item}
+								location={(item.post.latitude, item.post.longitude)}
 								title={item.post.title}
 								description={item.post.description}
 								price={item.post.price}

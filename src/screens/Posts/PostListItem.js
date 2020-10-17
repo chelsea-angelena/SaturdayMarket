@@ -17,12 +17,13 @@ const PostListItem = ({
 	image,
 	postedBy,
 	altEmail,
+	location,
 	email,
 	phoneNumber,
 	authorID,
 	userPhoto,
 }) => {
-	console.log(authorID, 'authorID');
+	
 
 	let date = created.toDate();
 	let dateArr = date.toString().split(' ');

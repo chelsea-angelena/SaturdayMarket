@@ -72,7 +72,7 @@ export default MyPostListItem;
 
 const styles = StyleSheet.create({
 	view: {
-		minWidth: 320,
+		width: 300,
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',

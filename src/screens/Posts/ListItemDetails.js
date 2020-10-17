@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { ScrollView, Image, Text, View, StyleSheet } from 'react-native';
 import { Icon, Card, ListItem, Divider, Avatar } from 'react-native-elements';
 import colors from '../../styles/colors';
-// import UserMap from '../Posts/UserMap';
+import UserMap from '../Posts/UserMap';
 import * as db from '../../config/firebaseConfig';
 import { UserContext } from '../../../App';
 import Screen from '../../Atoms/Screen';
@@ -15,8 +15,7 @@ const ListItemDetails = ({ navigation, route }, props) => {
 	const [isDisabled, setIsDisabled] = useState(false);
 	let { post, userData, authorID, created } = item;
 	let {
-		latitude,
-		longitude,
+location,
 		title,
 		category,
 		description,
@@ -25,7 +24,6 @@ const ListItemDetails = ({ navigation, route }, props) => {
 	} = post;
 
 	let { altEmail, email, displayName, phoneNumber, photoURL } = userData;
-
 
 	let profileID = authorID;
 
@@ -38,7 +36,6 @@ const ListItemDetails = ({ navigation, route }, props) => {
 	const checkIfSaved = async () => {
 		try {
 			let response = await db.checkIfSaved(postId, userId);
-
 		} catch (e) {
 			console.log(e);
 		}
@@ -120,7 +117,9 @@ const ListItemDetails = ({ navigation, route }, props) => {
 						/>
 					</View>
 				</Card>
-				{/* <UserMap location={(latitude, longitude)} /> */}
+				{location ? <UserMap
+					location={location}
+				/> : null}
 			</Card>
 		</ScrollView>
 	);
