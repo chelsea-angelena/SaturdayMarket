@@ -4,7 +4,7 @@ import { Icon, Card, ListItem, Divider, Avatar } from 'react-native-elements';
 import colors from '../../styles/colors';
 // import UserMap from '../Posts/UserMap';
 import * as db from '../../config/firebaseConfig';
-import { UserContext } from '../../Navigation/Main';
+import { UserContext } from '../../../App';
 import Screen from '../../Atoms/Screen';
 
 const SavedPostDetails = ({ navigation, route }, props) => {

@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { FormInput, ErrorMessage, FormButton } from './ProfileFormComponents';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { UserContext } from '../../Navigation/Main';
+import { UserContext } from '../../../App';
 import FormImagePicker from '../../Atoms/FormImagePicker';
 import * as db from '../../config/firebaseConfig';
 import { useNavigation } from '@react-navigation/native';

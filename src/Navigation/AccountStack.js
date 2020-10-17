@@ -12,7 +12,7 @@ const AccountStack = ({ navigation }) => {
 			<Stack.Screen name='ProfileScreen' component={ProfileScreen} />
 			<Stack.Screen name='EditProfile' component={EditProfile} />
 			<Stack.Screen name='ListItemDetails' component={ListItemDetails} />
-
+			<Stack.Screen name='UserProfileScreen' component={UserProfileScreen} />
 		</Stack.Navigator>
 	);
 };

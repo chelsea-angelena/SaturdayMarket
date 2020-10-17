@@ -1,6 +1,6 @@
 const colors = {
 	danger: 'hsl(350, 96%, 43%)',
-
+	primaryYelllow: 'hsl(42, 100%, 50%)',
 	primaryBlue: '#4E91DE',
 	rust: '#D97D54',
 

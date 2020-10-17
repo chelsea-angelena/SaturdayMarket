@@ -1,11 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import * as db from '../../config/firebaseConfig.js';
-import { UserContext } from '../../Navigation/Main';
-import { StyleSheet, Text, View } from 'react-native';
+import { UserContext } from '../../../App';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import ProfileScreen from './ProfileScreen';
-import { ListItem, Divider, Button, Icon } from 'react-native-elements';
-import SafeScreen from '../../Atoms/SafeScreen';
+
 import colors from '../../styles/colors';
 
 export default function Home(props) {
@@ -14,6 +13,15 @@ export default function Home(props) {
 		await db.signOut();
 	};
 
-	return <ProfileScreen user={user} />;
+	return (
+		<SafeAreaView style={styles.view}>
+			<ProfileScreen user={user} signOut={signOut} />
+		</SafeAreaView>
+	);
 }
 
+const styles = StyleSheet.create({
+	view: {
+		flex: 1,
+	},
+});

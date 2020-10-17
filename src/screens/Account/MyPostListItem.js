@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { FlatList, View, StyleSheet, Text, Image } from 'react-native';
 import * as db from '../../config/firebaseConfig';
-import { UserContext } from '../../Navigation/Main';
+import { UserContext } from '../../../App';
 import {
 	Divider,
 	Icon,
@@ -14,8 +14,6 @@ import {
 import colors from '../../styles/colors';
 import MaterialCommunityIcon from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-
-import Screen from '../../Atoms/Screen';
 
 const MyPostListItem = ({ item }) => {
 	const { created, post, userData } = item;

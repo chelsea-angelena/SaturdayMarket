@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import { Card, ListItem, Button, Icon, Avatar } from 'react-native-elements';
 import * as db from '../../config/firebaseConfig';
-import { UserContext } from '../../Navigation/Main';
+import { UserContext } from '../../../App';
 import { useNavigation } from '@react-navigation/native';
 import SavedPostItem from './SavedPostItem';
-
+import Screen from '../../Atoms/Screen';
 export default function SavedPosts() {
 	const [savedList, setSavedList] = useState([]);
 	const [postedId, setPostedId] = useState([]);
@@ -39,6 +39,7 @@ export default function SavedPosts() {
 			console.log(e);
 		}
 	};
+	
 	useEffect(() => {
 		getSavedList();
 	}, []);
@@ -47,29 +48,30 @@ export default function SavedPosts() {
 		return <Text>Loading...</Text>;
 	}
 	return (
-		<FlatList
-			data={postData}
-			keyExtractor={(postData) => postData.id}
-			renderItem={({ item }) => {
-				return (
-					<SavedPostItem
-						item={item}
-						title={item.post.title}
-						description={item.post.description}
-						price={item.post.price}
-						created={item.created}
-						category={item.post.category}
-						image={item.post.image}
-						postedBy={item.userData.displayName}
-						altEmail={item.userData.altEmail}
-						email={item.userData.email}
-						phoneNumber={item.userData.phoneNumber}
-						userPhoto={item.userData.photoURL}
-						authorID={item.authorID}
-					/>
-				);
-			}}
-		/>
+		<Screen>
+			<FlatList
+				data={postData}
+				keyExtractor={(postData) => postData.id}
+				renderItem={({ item }) => {
+					return (
+						<SavedPostItem
+							item={item}
+							title={item.post.title}
+							description={item.post.description}
+							price={item.post.price}
+							created={item.created}
+							category={item.post.category}
+							image={item.post.image}
+							postedBy={item.userData.displayName}
+							altEmail={item.userData.altEmail}
+							email={item.userData.email}
+							phoneNumber={item.userData.phoneNumber}
+							userPhoto={item.userData.photoURL}
+							authorID={item.authorID}
+						/>
+					);
+				}}
+			/>
+		</Screen>
 	);
 }
-

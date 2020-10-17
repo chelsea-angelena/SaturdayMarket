@@ -1,5 +1,7 @@
 import React, { useState, Component, Fragment } from 'react';
 import { StyleSheet, SafeAreaView, View, TouchableOpacity } from 'react-native';
+
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import { Button } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
@@ -9,6 +11,7 @@ import FormButton from './FormButton';
 import ErrorMessage from './ErrorMessage';
 import * as db from '../../config/firebaseConfig';
 import { useNavigation } from '@react-navigation/native';
+import Logo from '../../Atoms/Logo';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -44,70 +47,73 @@ const SignInScreen = () => {
 	};
 	// const { passwordVisibility, rightIcon } = this.state;
 	return (
-		<View style={styles.container}>
-			<Formik
-				initialValues={{ email: '', password: '' }}
-				onSubmit={(values) => {
-					handleLogin(values);
-				}}
-				validationSchema={validationSchema}
-			>
-				{({
-					handleChange,
-					values,
-					handleSubmit,
-					errors,
-					isValid,
-					touched,
-					handleBlur,
-					isSubmitting,
-				}) => (
-					<>
-						<FormInput
-							name='email'
-							value={values.email}
-							onChangeText={handleChange('email')}
-							placeholder='Enter email'
-							autoCapitalize='none'
-							iconName='ios-mail'
-							iconColor='#2C384A'
-							onBlur={handleBlur('email')}
-						/>
-						<ErrorMessage errorValue={touched.email && errors.email} />
-						<FormInput
-							name='password'
-							value={values.password}
-							onChangeText={handleChange('password')}
-							placeholder='Enter password'
-							secureTextEntry
-							iconName='ios-lock'
-							iconColor='#2C384A'
-							onBlur={handleBlur('password')}
-						/>
-						<ErrorMessage errorValue={touched.password && errors.password} />
-						<View style={styles.buttonContainer}>
-							<FormButton
-								buttonType='outline'
-								onPress={handleSubmit}
-								title='LOGIN'
-								buttonColor='#039BE5'
-								disabled={!isValid || isSubmitting}
-								loading={isSubmitting}
+		<KeyboardAwareScrollView>
+			<Logo />
+			<View style={styles.container}>
+				<Formik
+					initialValues={{ email: '', password: '' }}
+					onSubmit={(values) => {
+						handleLogin(values);
+					}}
+					validationSchema={validationSchema}
+				>
+					{({
+						handleChange,
+						values,
+						handleSubmit,
+						errors,
+						isValid,
+						touched,
+						handleBlur,
+						isSubmitting,
+					}) => (
+						<>
+							<FormInput
+								name='email'
+								value={values.email}
+								onChangeText={handleChange('email')}
+								placeholder='Enter email'
+								autoCapitalize='none'
+								iconName='ios-mail'
+								iconColor='#2C384A'
+								onBlur={handleBlur('email')}
 							/>
-						</View>
-						<ErrorMessage errorValue={errors.general} />
-					</>
-				)}
-			</Formik>
-			<Button
-				title="Don't have an account? Sign Up"
-				onPress={goToSignup}
-				titleStyle={{
-					color: '#F57C00',
-				}}
-				type='clear'
-			/>
-		</View>
+							<ErrorMessage errorValue={touched.email && errors.email} />
+							<FormInput
+								name='password'
+								value={values.password}
+								onChangeText={handleChange('password')}
+								placeholder='Enter password'
+								secureTextEntry
+								iconName='ios-lock'
+								iconColor='#2C384A'
+								onBlur={handleBlur('password')}
+							/>
+							<ErrorMessage errorValue={touched.password && errors.password} />
+							<View style={styles.buttonContainer}>
+								<FormButton
+									buttonType='outline'
+									onPress={handleSubmit}
+									title='LOGIN'
+									buttonColor='#039BE5'
+									disabled={!isValid || isSubmitting}
+									loading={isSubmitting}
+								/>
+							</View>
+							<ErrorMessage errorValue={errors.general} />
+						</>
+					)}
+				</Formik>
+				<Button
+					title="Don't have an account? Sign Up"
+					onPress={goToSignup}
+					titleStyle={{
+						color: '#F57C00',
+					}}
+					type='clear'
+				/>
+			</View>
+		</KeyboardAwareScrollView>
 	);
 };
 

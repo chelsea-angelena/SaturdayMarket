@@ -25,29 +25,31 @@ export default function UsersList({ authorID }) {
 		return <Text>Loading...</Text>;
 	}
 	return (
-		<FlatList
-			data={userPosts}
-			keyExtractor={(userPosts) => userPosts.id}
-			renderItem={({ item }) => {
-				return (
-					<UserPostItem
-						item={item}
-						title={item.post.title}
-						description={item.post.description}
-						price={item.post.price}
-						created={item.created.toDate()}
-						category={item.post.category}
-						image={item.post.image}
-						postedBy={item.userData.displayName}
-						altEmail={item.userData.altEmail}
-						email={item.userData.email}
-						phoneNumber={item.userData.phoneNumber}
-						userPhoto={item.userData.photoURL}
-						authorID={item.authorID}
-					/>
-				);
-			}}
-		/>
+		<View style={styles.view}>
+			<FlatList
+				data={userPosts}
+				keyExtractor={(userPosts) => userPosts.id}
+				renderItem={({ item }) => {
+					return (
+						<UserPostItem
+							item={item}
+							title={item.post.title}
+							description={item.post.description}
+							price={item.post.price}
+							created={item.created.toDate()}
+							category={item.post.category}
+							image={item.post.image}
+							postedBy={item.userData.displayName}
+							altEmail={item.userData.altEmail}
+							email={item.userData.email}
+							phoneNumber={item.userData.phoneNumber}
+							userPhoto={item.userData.photoURL}
+							authorID={item.authorID}
+						/>
+					);
+				}}
+			/>
+		</View>
 	);
 }
 
@@ -119,7 +121,9 @@ const UserPostItem = ({
 };
 const styles = StyleSheet.create({
 	view: {
-		// height: 400,
+		height: 450,
+		minWidth: 320,
+		maxWidth: 500,
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',

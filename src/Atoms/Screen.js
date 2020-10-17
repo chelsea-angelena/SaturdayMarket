@@ -1,28 +1,44 @@
 import React from 'react';
 import Constants from 'expo-constants';
 import defaultStyles from '../styles/styles';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Dimensions, View } from 'react-native';
+import {
+	widthPercentageToDP as wp,
+	heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import colors from '../styles/colors.js';
 
 function Screen({ children, style }) {
 	return (
-		<SafeAreaView>
-			<ScrollView style={[styles.screen, style]}>
-				<View style={[styles.view, style]}>{children}</View>
-			</ScrollView>
-		</SafeAreaView>
+		<View style={[styles.container, style]}>
+			<View style={[styles.responsiveBox, style]}>{children}</View>
+		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	screen: {
-		paddingTop: Constants.statusBarHeight,
+	container: {
 		flex: 1,
+		// backgroundColor: colors.drab,
+		alignItems: 'center',
+		justifyContent: 'center',
+		// paddingTop: 64,
+		// marginTop: 32,
+		paddingBottom: 32,
 	},
-	view: {
+	responsiveBox: {
+		maxWidth: 500,
+		width: wp('97%'),
+		height: hp('85%'),
+		alignSelf: 'center',
+		// borderWidth: 2,
+		// borderColor: 'orange',
+		flexDirection: 'column',
+		justifyContent: 'space-around',
+		justifyContent: 'center',
 		marginTop: 32,
-		marginBottom: 32,
+		// marginBottom: 32,
 	},
 });
-
 
 export default Screen;

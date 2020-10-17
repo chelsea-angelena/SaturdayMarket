@@ -8,16 +8,17 @@ import {
 	FormButton,
 } from '../../screens/Account/ProfileFormComponents';
 import AppText from '../../Atoms/Text';
-import { CheckBox, Overlay, Icon, Card } from 'react-native-elements';
+import { CheckBox, Overlay, Icon, Card, Divider } from 'react-native-elements';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { UserContext } from '../../Navigation/Main';
+import { UserContext } from '../../../App';
 import Modal from 'modal-react-native-web';
 import FormImagePicker from '../../Atoms/FormImagePicker';
 import * as db from '../../config/firebaseConfig';
 import useLocation from '../../hooks/useLocation';
 import CategoryModal from './Categories';
 import colors from '../../styles/colors';
+import Logo from '../../Atoms/Logo';
 // import UserMap from './UserMap';
 import { useNavigation } from '@react-navigation/native';
 import Screen from '../../Atoms/Screen';
@@ -110,15 +111,15 @@ export default function PostForm() {
 				handleBlur,
 				isSubmitting,
 			}) => (
-				<KeyboardAwareScrollView>
-					<View style={styles.view}>
+				<Screen>
+					<KeyboardAwareScrollView>
 						<Card
-							wrapperStyle={{
-								alignItems: 'center',
-								alignSelf: 'center',
-							}}
-							containerStyle={{ width: 400, alignItems: 'center' }}
+							wrapperStyle={styles.wrapper}
+							containerStyle={styles.container}
 						>
+							<Card.Title></Card.Title>
+							<Logo />
+
 							<FormImagePicker
 								style={styles.picker}
 								type='Blob'
@@ -144,12 +145,52 @@ export default function PostForm() {
 							<ErrorMessage
 								errorValue={touched.description && errors.description}
 							/>
+							<FormInput
+								name='price'
+								value={values.price}
+								onChangeText={handleChange('price')}
+								placeholder='$ 0.00    (enter price)'
+								onBlur={handleBlur('price')}
+							/>
+							<ErrorMessage errorValue={touched.price && errors.price} />
+							<FormInput
+								name='altEmail'
+								value={values.altEmail}
+								onChangeText={handleChange('altEmail')}
+								placeholder='(optional alt contact)'
+								iconName='ios-mail'
+								iconColor='#2C384A'
+								onBlur={handleBlur('altEmail')}
+							/>
+							<ErrorMessage errorValue={touched.altEmail && errors.altEmail} />
+							<FormInput
+								name='phoneNumber'
+								value={values.phoneNumber}
+								onChangeText={handleChange('phoneNumber')}
+								placeholder='(optional alt contact)'
+								iconName='ios-call'
+								iconColor='#2C384A'
+								onBlur={handleBlur('phoneNumber')}
+							/>
+							<ErrorMessage
+								errorValue={touched.phoneNumber && errors.phoneNumber}
+							/>
+							<AppText style={styles.text}>Choose a category</AppText>
 							<Icon
 								type='material-community'
 								name='chevron-down'
 								color={colors.onyx}
 								onPress={toggleOverlay}
 							/>
+							<FormInput
+								name='category'
+								value={values.category}
+								onChangeText={handleChange('category')}
+								placeholder={category}
+								autoCapitalize='none'
+								onBlur={handleBlur('category')}
+							/>
+							<ErrorMessage errorValue={touched.category && errors.category} />
 							<Overlay
 								overlayStyle={{ height: 350 }}
 								isVisible={visible}
@@ -168,78 +209,38 @@ export default function PostForm() {
 									updateCategory={setCategory}
 								/>
 							</Overlay>
-
-							<AppText style={styles.text}>Choose a category</AppText>
-							<FormInput
-								name='category'
-								value={values.category}
-								onChangeText={handleChange('category')}
-								placeholder={category}
-								autoCapitalize='none'
-								onBlur={handleBlur('category')}
-							/>
-							<ErrorMessage errorValue={touched.category && errors.category} />
-
-							<FormInput
-								name='price'
-								value={values.price}
-								onChangeText={handleChange('price')}
-								placeholder='$ 0.00    (enter price)'
-								onBlur={handleBlur('price')}
-							/>
-							<ErrorMessage errorValue={touched.price && errors.price} />
 							<CheckBox
 								title='Include a Map with your location?'
 								status={checked ? 'checked' : 'unchecked'}
 								onPress={() => setChecked(!checked)}
+								containerStyle={styles.box}
 							/>
 							{checked ? <UserMap location={location} /> : null}
-							<FormInput
-								name='altEmail'
-								value={values.altEmail}
-								onChangeText={handleChange('altEmail')}
-								placeholder='(optional...) Enter an alternative email for buyers to contaxt you'
-								iconName='ios-mail'
-								iconColor='#2C384A'
-								onBlur={handleBlur('altEmail')}
-							/>
-							<ErrorMessage errorValue={touched.altEmail && errors.altEmail} />
-							<FormInput
-								name='phoneNumber'
-								value={values.phoneNumber}
-								onChangeText={handleChange('phoneNumber')}
-								placeholder='(optional....) Enter a contact phone number'
-								iconName='ios-call'
-								iconColor='#2C384A'
-								onBlur={handleBlur('phoneNumber')}
-							/>
-							<ErrorMessage
-								errorValue={touched.phoneNumber && errors.phoneNumber}
-							/>
 							<View style={styles.buttonContainer}>
 								<FormButton
 									buttonType='outline'
 									onPress={handleSubmit}
 									title='Submit Post'
-									buttonColor='#039BE5'
+									buttonColor={colors.slate}
 									disabled={!isValid || isSubmitting}
 									loading={isSubmitting}
 								/>
+
+								<ErrorMessage errorValue={errors.general} />
 							</View>
-							<ErrorMessage errorValue={errors.general} />
 						</Card>
-					</View>
-				</KeyboardAwareScrollView>
+					</KeyboardAwareScrollView>
+				</Screen>
 			)}
 		</Formik>
 	);
 }
 const styles = StyleSheet.create({
-	view: {
-		alignItems: 'center',
-		width: 400,
-		alignSelf: 'center',
-	},
+	// view: {
+	// 	alignItems: 'center',
+	// 	width: 400,
+	// 	alignSelf: 'center',
+	// },
 	container: {
 		flex: 1,
 		backgroundColor: '#fff',
@@ -250,5 +251,15 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		alignSelf: 'center',
+	},
+	wrapper: {
+		width: '100%',
+		margin: 0,
+		padding: 0,
+	},
+	container: {
+		width: '100%',
+		margin: 0,
+		padding: 0,
 	},
 });

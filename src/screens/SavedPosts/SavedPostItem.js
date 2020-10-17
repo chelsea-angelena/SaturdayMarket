@@ -7,11 +7,18 @@ import {
 	Text,
 	TouchableOpacity,
 } from 'react-native';
-import { Card, ListItem, Button, Icon, Avatar } from 'react-native-elements';
+import {
+	Divider,
+	Card,
+	ListItem,
+	Button,
+	Icon,
+	Avatar,
+} from 'react-native-elements';
 import * as db from '../../config/firebaseConfig';
-import { UserContext } from '../../Navigation/Main';
+import { UserContext } from '../../../App';
 import { useNavigation } from '@react-navigation/native';
-import Screen from '../../Atoms/Screen';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const SavedPostItem = ({
 	item,
@@ -42,122 +49,52 @@ const SavedPostItem = ({
 	};
 
 	return (
-		<Card
-			wrapperStyle={{}}
-			// containerStyle={{ minWidth: 320, maxWidth: 500, alignSelf: 'center' }}
-			containerStyle={{ width: 400, alignSelf: 'center' }}
-		>
-			<Card.Image
-				resizeMode='cover'
-				source={{ uri: image }}
-				alt='Posted Image'
-				style={styles.image}
-			/>
-			<Card.Divider />
-			<View style={styles.row}>
-				<Card.Title style={styles.text}>{title}</Card.Title>
-				<ListItem.Subtitle>${price}</ListItem.Subtitle>
-			</View>
-			<Card.Divider />
-			<View style={styles.row}>
+		<Card wrapperStyle={styles.wrapper} containerStyle={styles.container}>
+			<ListItem style={styles.list}>
 				<Avatar
-					rounded
-					source={{
-						uri: userPhoto,
-					}}
+					source={{ uri: image }}
+					alt='Posted Image'
+					size='xlarge'
+					avatarStyle={{ borderRadius: 8 }}
 				/>
-
-				<View style={styles.column}>
-					<ListItem.Subtitle style={styles.posted}>PostedBy:</ListItem.Subtitle>
-					<ListItem.Title style={{ paddingTop: 4, paddingBottom: 8 }}>
-						{postedBy}
-					</ListItem.Title>
-					{/* <View style={styles.column}>
-					<ListItem.Subtitle style={styles.posted}>PostedBy:</ListItem.Subtitle>
-					<ListItem.Title>{postedBy}</ListItem.Title>
-
-					<ListItem.Subtitle style={styles.date}>
-						{splicedDate[0]} {splicedDate[1]} {splicedDate[2]}at: {time} PST
-					</ListItem.Subtitle> */}
-				</View>
-				<Icon
+				<ListItem.Content style={styles.content}>
+					<ListItem.Title style={styles.title}>{title}</ListItem.Title>
+					<ListItem.Subtitle style={styles.subtitle}>
+						${price}
+					</ListItem.Subtitle>
+				</ListItem.Content>
+				<MaterialCommunityIcons
 					type='material-community'
 					name='chevron-right'
 					size={24}
 					color='black'
 					onPress={goToDetails}
 				/>
-			</View>
+			</ListItem>
 		</Card>
 	);
 };
 
 export default SavedPostItem;
 const styles = StyleSheet.create({
-	view: {
-		alignItems: 'center',
-		justifyContent: 'center',
-		alignSelf: 'center',
-		width: 320,
+	title: {
+		fontWeight: 'bold',
 	},
-	text: {
-		marginLeft: 16,
+	subtitle: {
+		paddingTop: 16,
 	},
-	row: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		marginLeft: 16,
-		marginRight: 16,
-		alignItems: 'center',
-	},
-	image: {
+	container: {
 		width: '100%',
-		// height: 150,
+		margin: 0,
+		padding: 0,
+		marginTop: 24,
 	},
-	column: {
-		flexDirection: 'column',
+	wrapper: {
+		width: '100%',
+		margin: 0,
+		padding: 0,
 	},
-	posted: {
-		fontSize: 12,
-	},
-	postBy: {
-		fontSize: 13,
-	},
-	date: {
-		fontSize: 12,
+	content: {
+		paddingLeft: 16,
 	},
 });
-
-// 	view: {
-// 		alignItems: 'center',
-// 		justifyContent: 'center',
-// 		alignSelf: 'center',
-// 	},
-// 	text: {
-// 		marginLeft: 16,
-// 	},
-// 	row: {
-// 		flexDirection: 'row',
-// 		justifyContent: 'space-between',
-// 		marginLeft: 16,
-// 		marginRight: 16,
-// 		alignItems: 'center',
-// 	},
-// 	image: {
-// 		width: '100%',
-// 		height: 150,
-// 	},
-
-// 	column: {
-// 		flexDirection: 'column',
-// 	},
-// 	posted: {
-// 		fontSize: 12,
-// 	},
-// 	postBy: {
-// 		fontSize: 13,
-// 	},
-// 	date: {
-// 		fontSize: 12,
-// 	},
-// });

@@ -14,7 +14,7 @@ function useAuth() {
 		});
 	}, []);
 
-	return [user, loading];
+	return [user, loading, error];
 }
 
 export default useAuth;

@@ -14,16 +14,37 @@ export default function TabNavigator({ navigation, user }) {
 			activeTintColor={colors.snow}
 			inactiveTintColor={colors.white}
 			barStyle={{
-				backgroundColor: colors.slate,
+				backgroundColor: 'hsl(42, 100%, 50%)',
 			}}
 			initialRoute='PostsStack'
 			screenOptions={{ headerShown: false }}
 		>
 			<Tab.Screen
+				name='PostsStack'
+				component={PostsStack}
+				user={user}
+				options={{
+					tabBarLabel: 'Posts',
+					tabBarIcon: ({ color }) => (
+						<MaterialCommunityIcons name='tag-heart' color={color} size={26} />
+					),
+				}}
+			/>
+			<Tab.Screen
+				name='SavedPostsStack'
+				component={SavedPostsStack}
+				options={{
+					tabBarLabel: 'Saved Posts',
+					tabBarIcon: ({ color }) => (
+						<MaterialCommunityIcons name='heart' color={color} size={26} />
+					),
+				}}
+			/>
+
+			<Tab.Screen
 				name='PostForm'
 				component={PostForm}
 				options={{
-					title: 'New Posts',
 					tabBarLabel: 'New Post',
 					tabBarIcon: ({ color }) => (
 						<MaterialCommunityIcons
@@ -34,40 +55,15 @@ export default function TabNavigator({ navigation, user }) {
 					),
 				}}
 			/>
-
-			<Tab.Screen
-				name='SavedPostsStack'
-				component={SavedPostsStack}
-				options={{
-					title: 'Saved Posts',
-					tabBarLabel: 'Saved Posts',
-					tabBarIcon: ({ color }) => (
-						<MaterialCommunityIcons name='heart' color={color} size={26} />
-					),
-				}}
-			/>
 			<Tab.Screen
 				name='AccountStack'
 				activeColor={colors.white}
 				inactiveColor={colors.lightGrey}
 				component={AccountStack}
 				options={{
-					title: 'Account',
 					tabBarLabel: 'Account',
 					tabBarIcon: ({ color }) => (
 						<MaterialCommunityIcons name='account' color={color} size={26} />
-					),
-				}}
-			/>
-			<Tab.Screen
-				name='PostsStack'
-				component={PostsStack}
-				user={user}
-				options={{
-					title: 'Posts',
-					tabBarLabel: 'Posts',
-					tabBarIcon: ({ color }) => (
-						<MaterialCommunityIcons name='tag-heart' color={color} size={26} />
 					),
 				}}
 			/>
