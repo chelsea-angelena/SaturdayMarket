@@ -30,30 +30,23 @@ export default function MyPostsList({ myPosts, signOut, userId, user }) {
 
 		<>
 			<View style={styles.view}>
-				<Card
+				{/* <Card
 					wrapperStyle={{
 						alignItems: 'center',
 						justifyContent: 'space-evenly',
 					}}
-				>
-					<ListItem.Title style={{ marginTop: 24, marginBottom: 24 }}>
-						<FlatList
-							data={myPosts}
-							keyExtractor={(myPosts) => myPosts.id}
-							renderItem={({ item }) => {
-								return (
-									<MyPostListItem
-										item={item}
-										signOut={signOut}
-										userId={userId}
-									/>
-								);
-							}}
-						/>
-					</ListItem.Title>
-
-
-				</Card>
+				> */}
+				<ListItem.Title style={{ marginTop: 24, marginBottom: 24 }}>
+					<FlatList
+						data={myPosts}
+						keyExtractor={(myPosts) => myPosts.id}
+						renderItem={({ item }) => {
+							return (
+								<MyPostListItem item={item} signOut={signOut} userId={userId} />
+							);
+						}}
+					/>
+				</ListItem.Title>
 			</View>
 		</>
 	);
@@ -66,8 +59,6 @@ const styles = StyleSheet.create({
 	},
 	view: {
 		height: 450,
-		minWidth: 320,
-		maxWidth: 500,
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',

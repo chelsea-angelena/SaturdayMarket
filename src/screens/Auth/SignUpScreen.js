@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import { useNavigation } from '@react-navigation/native';
 import * as db from '../../config/firebaseConfig';
 import FormInput from './FormInput';
@@ -8,6 +9,8 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { CheckBox, Button } from 'react-native-elements';
 import ErrorMessage from './ErrorMessage';
+import Logo from '../../Atoms/Logo';
+import colors from '../../styles/colors';
 
 const validationSchema = Yup.object().shape({
 	displayName: Yup.string()
@@ -31,7 +34,9 @@ const validationSchema = Yup.object().shape({
 const SignUpScreen = () => {
 	const [userEmail, setUserEmail] = useState('');
 	const [uid, setUserId] = useState('');
+	const [displayName, setDisplayName] = useState('');
 	const [submitting, setSubmitting] = useState(false);
+	const [error, setError] = useState(null);
 	const navigation = useNavigation();
 
 	const goToLogIn = () => {
@@ -48,121 +53,124 @@ const SignUpScreen = () => {
 				uid: response.user.uid,
 				displayName: displayName,
 			});
-			navigation.navigate('AuthApp', { screen: 'Home' });
+			navigation.navigate('TabNavigator', { screen: 'PostsStackScreen' });
 		} catch (error) {
-			console.error(error);
-			// setFieldError('general', error.message);
+			setError(error.message);
+			setSubmitting(false);
 		} finally {
 			setSubmitting(false);
 		}
 	};
 
 	return (
-		<View style={styles.container}>
-			<Formik
-				initialValues={{
-					displayName: '',
-					email: '',
-					password: '',
-					confirmPassword: '',
-					check: false,
-				}}
-				onSubmit={(values) => {
-					handleSignUp(values);
-				}}
-				validationSchema={validationSchema}
-			>
-				{({
-					handleChange,
-					values,
-					handleSubmit,
-					errors,
-					isValid,
-					touched,
-					handleBlur,
-					isSubmitting,
-					setFieldValue,
-				}) => (
-					<>
-						<FormInput
-							displayName='displayName'
-							value={values.displayName}
-							onChangeText={handleChange('displayName')}
-							placeholder='Enter your full name'
-							iconName='md-person'
-							iconColor='#2C384A'
-							onBlur={handleBlur('displayName')}
-						/>
-						<ErrorMessage errorValue={touched.name && errors.name} />
-						<FormInput
-							name='email'
-							value={values.email}
-							onChangeText={handleChange('email')}
-							placeholder='Enter email'
-							autoCapitalize='none'
-							iconName='ios-mail'
-							iconColor='#2C384A'
-							onBlur={handleBlur('email')}
-						/>
-						<ErrorMessage errorValue={touched.email && errors.email} />
-						<FormInput
-							name='password'
-							value={values.password}
-							onChangeText={handleChange('password')}
-							placeholder='Enter password'
-							iconName='ios-lock'
-							iconColor='#2C384A'
-							onBlur={handleBlur('password')}
-							secureTextEntry
-						/>
-						<ErrorMessage errorValue={touched.password && errors.password} />
-						<FormInput
-							name='password'
-							value={values.confirmPassword}
-							onChangeText={handleChange('confirmPassword')}
-							placeholder='Confirm password'
-							iconName='ios-lock'
-							iconColor='#2C384A'
-							onBlur={handleBlur('confirmPassword')}
-							secureTextEntry
-						/>
-
-						<ErrorMessage
-							errorValue={touched.confirmPassword && errors.confirmPassword}
-						/>
-						<CheckBox
-							containerStyle={styles.checkBoxContainer}
-							checkedIcon='check-box'
-							iconType='material'
-							uncheckedIcon='check-box-outline-blank'
-							title='Agree to terms and conditions'
-							checkedTitle='You agreed to our terms and conditions'
-							checked={values.check}
-							onPress={() => setFieldValue('check', !values.check)}
-						/>
-						<View style={styles.buttonContainer}>
-							<FormButton
-								buttonType='outline'
-								onPress={handleSubmit}
-								title='SIGNUP'
-								buttonColor='#F57C00'
-								disabled={!isValid || isSubmitting}
-								loading={isSubmitting}
+		<KeyboardAwareScrollView>
+			<Logo />
+			<View style={styles.container}>
+				<Formik
+					initialValues={{
+						displayName: '',
+						email: '',
+						password: '',
+						confirmPassword: '',
+						check: false,
+					}}
+					onSubmit={(values) => {
+						handleSignUp(values);
+					}}
+					validationSchema={validationSchema}
+				>
+					{({
+						handleChange,
+						values,
+						handleSubmit,
+						errors,
+						isValid,
+						touched,
+						handleBlur,
+						isSubmitting,
+						setFieldValue,
+					}) => (
+						<>
+							<FormInput
+								displayName='displayName'
+								value={values.displayName}
+								onChangeText={handleChange('displayName')}
+								placeholder='Enter your full name'
+								iconName='md-person'
+								iconColor='#2C384A'
+								onBlur={handleBlur('displayName')}
 							/>
-						</View>
-						<ErrorMessage errorValue={errors.general} />
-					</>
-				)}
-			</Formik>
-			<Button
-				title='Have an account? Login'
-				onPress={goToLogIn}
-				titleStyle={{
-					color: '#039BE5',
-				}}
-				type='clear'
-			/>
-		</View>
+							<ErrorMessage errorValue={touched.name && errors.name} />
+							<FormInput
+								name='email'
+								value={values.email}
+								onChangeText={handleChange('email')}
+								placeholder='Enter email'
+								autoCapitalize='none'
+								iconName='ios-mail'
+								iconColor='#2C384A'
+								onBlur={handleBlur('email')}
+							/>
+							<ErrorMessage errorValue={touched.email && errors.email} />
+							<FormInput
+								name='password'
+								value={values.password}
+								onChangeText={handleChange('password')}
+								placeholder='Enter password'
+								iconName='ios-lock'
+								iconColor='#2C384A'
+								onBlur={handleBlur('password')}
+								secureTextEntry
+							/>
+							<ErrorMessage errorValue={touched.password && errors.password} />
+							<FormInput
+								name='password'
+								value={values.confirmPassword}
+								onChangeText={handleChange('confirmPassword')}
+								placeholder='Confirm password'
+								iconName='ios-lock'
+								iconColor='#2C384A'
+								onBlur={handleBlur('confirmPassword')}
+								secureTextEntry
+							/>
+
+							<ErrorMessage
+								errorValue={touched.confirmPassword && errors.confirmPassword}
+							/>
+							<CheckBox
+								containerStyle={styles.checkBoxContainer}
+								checkedIcon='check-box'
+								iconType='material'
+								uncheckedIcon='check-box-outline-blank'
+								title='Agree to terms and conditions'
+								checkedTitle='You agreed to our terms and conditions'
+								checked={values.check}
+								onPress={() => setFieldValue('check', !values.check)}
+							/>
+							<View style={styles.buttonContainer}>
+								<FormButton
+									buttonType='outline'
+									onPress={handleSubmit}
+									title='SIGNUP'
+									buttonColor={colors.ochre}
+									disabled={!isValid || isSubmitting}
+									loading={isSubmitting}
+								/>
+							</View>
+							<ErrorMessage errorValue={errors.general} />
+						</>
+					)}
+				</Formik>
+				<Button
+					title='Have an account? Login'
+					onPress={goToLogIn}
+					titleStyle={{
+						color: colors.drab,
+					}}
+					type='clear'
+				/>
+			</View>
+		</KeyboardAwareScrollView>
 	);
 };
 
@@ -171,8 +179,8 @@ export default SignUpScreen;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
-		marginTop: 50,
+		backgroundColor: colors.white,
+		paddingTop: 15,
 	},
 	logoContainer: {
 		marginBottom: 15,
@@ -182,7 +190,7 @@ const styles = StyleSheet.create({
 		margin: 25,
 	},
 	checkBoxContainer: {
-		backgroundColor: '#fff',
+		backgroundColor: colors.white,
 		borderColor: '#fff',
 	},
 });

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import {
 	PostsListScreen,
 	PostListItem,

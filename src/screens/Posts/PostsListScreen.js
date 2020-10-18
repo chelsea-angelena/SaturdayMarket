@@ -20,24 +20,63 @@ import Screen from '../../Atoms/Screen';
 import Logo from '../../Atoms/Logo';
 import colors from '../../styles/colors';
 
-const wait = (timeout) => {
-	return new Promise((resolve) => {
-		setTimeout(resolve, timeout);
-	});
-};
+// const wait = (timeout) => {
+// 	return new Promise((resolve) => {
+// 		setTimeout(resolve, timeout);
+// 	});
+// };
 
 export default function PostsListScreen(props) {
-	// const [posts, setPosts] = useState([]);
-	const [refreshing, setRefreshing] = useState(false);
+	const [posts, setPosts] = useState([]);
+	// const [refreshing, setRefreshing] = useState(false);
 	const user = useContext(UserContext);
+	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(true);
+	// const { data: posts, error } = useSWR('posts', db.getCollection);
 
-	const { data: posts, error } = useSWR('posts', db.getCollection);
+	// const reFetch = async () => {
+	// 	result = await db.getCollection('posts');
 
-	const onRefresh = React.useCallback(() => {
-		setRefreshing(true);
+	// 	console.log(result);
+	// };
 
-		wait(2000).then(() => setRefreshing(false));
+	// 		let response = await db.getCollection('posts');
+	// 		console.log(response);
+	// 		posts.push(response);
+	// 	} catch (e) {
+	// 		setError(error);
+	// 	}
+	// 	wait(2000).then(() => setRefreshing(false));
+	// }, [refreshing]);
+
+	useEffect(() => {
+		return db.postsRef.onSnapshot((querySnapshot) => {
+			const newPosts = [];
+			querySnapshot.forEach((doc) => {
+				const { authorID, post, created, id, userData } = doc.data();
+				newPosts.push({
+					id: doc.id,
+					post,
+					authorID,
+					created,
+					userData,
+				});
+			});
+			setPosts(newPosts);
+			if (loading) {
+				setLoading(false);
+			}
+		});
 	}, []);
+
+	// next: (querySnapshot) => {
+	// 	const data = querySnapshot.docs.map((doc) => ({
+	// 		id: doc.id,
+	// 		...doc.data(),
+	// 	}));
+	// 	setPosts(data);
+	// 	},
+	// });
 
 	if (error) {
 		return <Text>Error...</Text>;
@@ -49,22 +88,22 @@ export default function PostsListScreen(props) {
 		return <Text>No Lists....</Text>;
 	}
 	return (
-		<Screen style={{ backgroundColor: colors.drab }}>
+		<Screen>
 			<FlatList
-				refreshControl={
-					<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-				}
+				keyExtractor={(posts) => posts.id}
+				// refreshControl={
+				// 	<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+				// }
 				data={posts}
 				renderItem={({ item }) => {
 					return (
 						<>
 							<PostListItem
 								item={item}
-								location={(item.post.latitude, item.post.longitude)}
+								postId={item.post.id}
 								title={item.post.title}
 								description={item.post.description}
 								price={item.post.price}
-								created={item.created}
 								category={item.post.category}
 								image={item.post.image}
 								postedBy={item.userData.displayName}
@@ -73,6 +112,7 @@ export default function PostsListScreen(props) {
 								phoneNumber={item.userData.phoneNumber}
 								userPhoto={item.userData.photoURL}
 								authorID={item.authorID}
+								created={item.created.t}
 							/>
 						</>
 					);

@@ -12,6 +12,7 @@ import ErrorMessage from './ErrorMessage';
 import * as db from '../../config/firebaseConfig';
 import { useNavigation } from '@react-navigation/native';
 import Logo from '../../Atoms/Logo';
+import colors from '../../styles/colors';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -27,6 +28,7 @@ const validationSchema = Yup.object().shape({
 const SignInScreen = () => {
 	const [submitting, setSubmitting] = useState(false);
 	const [user, setUser] = useState({});
+	const [error, setError] = useState(null);
 	const navigation = useNavigation();
 	const goToSignup = () => navigation.navigate('SignUpScreen');
 
@@ -36,10 +38,10 @@ const SignInScreen = () => {
 			const response = await db.loginWithEmail(email, password);
 			if (response.user) {
 				setUser(response);
-				navigation.navigate('AuthApp', { screen: 'Home' });
+				navigation.navigate('TabNavigator');
 			}
 		} catch (error) {
-			console.error(error);
+			setError(error.message);
 			setSubmitting(false);
 		} finally {
 			setSubmitting(false);
@@ -95,8 +97,8 @@ const SignInScreen = () => {
 									buttonType='outline'
 									onPress={handleSubmit}
 									title='LOGIN'
-									buttonColor='#039BE5'
-									disabled={!isValid || isSubmitting}
+									buttonColor={colors.ochre}
+									disabled={!isValid}
 									loading={isSubmitting}
 								/>
 							</View>
@@ -108,7 +110,7 @@ const SignInScreen = () => {
 					title="Don't have an account? Sign Up"
 					onPress={goToSignup}
 					titleStyle={{
-						color: '#F57C00',
+						color: colors.drab,
 					}}
 					type='clear'
 				/>
@@ -120,8 +122,8 @@ const SignInScreen = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
-		marginTop: 50,
+		backgroundColor: colors.white,
+		paddingTop: 15,
 	},
 	// logoContainer: {
 	// 	marginBottom: 15,

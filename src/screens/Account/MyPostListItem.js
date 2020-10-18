@@ -34,12 +34,18 @@ const MyPostListItem = ({ item }) => {
 	console.log(item, 'item');
 	return (
 		<Card
-			containerStyle={{ width: 350 }}
+			containerStyle={{
+				padding: 0,
+				marginTop: 16,
+				backgroundColor: colors.grey,
+			}}
 			wrapperStyle={{
 				flexDirection: 'row',
-				width: 300,
 				justifyContent: 'space-between',
 				alignItems: 'center',
+
+				heigth: 75,
+				marginTop: 8,
 			}}
 		>
 			<Card.Image
@@ -71,30 +77,72 @@ const MyPostListItem = ({ item }) => {
 export default MyPostListItem;
 
 const styles = StyleSheet.create({
+	// 	view: {
+	// 		width: 300,
+	// 		alignItems: 'center',
+	// 		justifyContent: 'center',
+	// 		alignSelf: 'center',
+	// 	},
+	// 	text: {
+	// 		// marginLeft: 16,
+	// 	},
+	// 	row: {
+	// 		flexDirection: 'row',
+	// 		justifyContent: 'space-between',
+	// 		// marginLeft: 16,
+	// 		marginRight: 16,
+	// 		alignItems: 'center',
+	// 	},
+	// 	image: {
+	// 		width: 150,
+	// 		height: 75,
+	// 	},
+
+	// 	column: {
+	// 		flexDirection: 'column',
+	// 		width: 150,
+	// 		alignItems: 'center',
+	// 	},
+	// 	posted: {
+	// 		fontSize: 12,
+	// 	},
+	// 	postBy: {
+	// 		fontSize: 13,
+	// 	},
+	// 	date: {
+	// 		fontSize: 12,
+	// 	},
+	// });
 	view: {
-		width: 300,
+		height: 450,
+
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',
 	},
 	text: {
-		// marginLeft: 16,
+		marginLeft: 16,
+		fontSize: 16,
 	},
 	row: {
 		flexDirection: 'row',
-		justifyContent: 'space-between',
-		// marginLeft: 16,
+		justifyContent: 'center',
+		marginLeft: 16,
 		marginRight: 16,
 		alignItems: 'center',
+		minWidth: 320,
+		maxWidth: '100%',
 	},
 	image: {
-		width: 150,
+		width: 100,
 		height: 75,
+		padding: 16,
+		borderRadius: 4,
 	},
 
 	column: {
 		flexDirection: 'column',
-		width: 150,
+		// width: 200,
 		alignItems: 'center',
 	},
 	posted: {
@@ -106,7 +154,13 @@ const styles = StyleSheet.create({
 	date: {
 		fontSize: 12,
 	},
+	card: {
+		flexDirection: 'row',
+		width: '100%',
+		height: 50,
+	},
 });
+
 // 	view: {
 // 		width: 200,
 // 		height: 400,

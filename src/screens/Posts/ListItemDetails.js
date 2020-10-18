@@ -1,5 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { ScrollView, Image, Text, View, StyleSheet } from 'react-native';
+import {
+	ScrollView,
+	Image,
+	Text,
+	View,
+	StyleSheet,
+	TouchableOpacity,
+} from 'react-native';
 import { Icon, Card, ListItem, Divider, Avatar } from 'react-native-elements';
 import colors from '../../styles/colors';
 import UserMap from '../Posts/UserMap';
@@ -9,29 +16,32 @@ import Screen from '../../Atoms/Screen';
 
 const ListItemDetails = ({ navigation, route }, props) => {
 	const { item } = route.params;
+	console.log(item, 'item');
 	const user = useContext(UserContext);
 	const userId = user.uid;
-	console.log(user.email);
+
 	const [isDisabled, setIsDisabled] = useState(false);
-	let { post, userData, authorID, created } = item;
-	let {
-location,
-		title,
-		category,
-		description,
-		image,
-		price,
-	} = post;
+
+	let { post, userData, authorID } = item;
+
+	let { location, title, category, description, image, price } = post;
 
 	let { altEmail, email, displayName, phoneNumber, photoURL } = userData;
 
+	console.log(authorID);
 	let profileID = authorID;
+	console.log(profileID);
 
-	let Date = created.toDate();
-	let dateArr = Date.toString();
-	let dateSPlit = dateArr.split(' ');
-	let splicedDate = dateSPlit.splice(0, 4);
-	let postId = item.id;
+	// let postId = item.id;
+
+	let { created: t } = item;
+	let date = t.toDate();
+	let dateArr = date.toString().split(' ');
+	let splicedDate = dateArr.splice(0, 4);
+	let splicedTime = dateArr.splice(0, 1);
+	let split = splicedTime[0].split('');
+	let timeSplice = split.splice(0, 5);
+	let time = timeSplice.join('');
 
 	const checkIfSaved = async () => {
 		try {
@@ -40,7 +50,6 @@ location,
 			console.log(e);
 		}
 	};
-
 	const savePost = async () => {
 		let result = await db.savePost(postId, userId);
 		setIsDisabled(true);
@@ -82,9 +91,11 @@ location,
 					color={colors.medGrey}
 					underlayColor={colors.darkGrey}
 				/>
-				<ListItem.Subtitle style={{ alignSelf: 'center', paddingTop: 8 }}>
-					{splicedDate[0]} {splicedDate[1]} {splicedDate[2]}
+				<ListItem.Subtitle style={styles.date}>Posted on:</ListItem.Subtitle>
+				<ListItem.Subtitle style={styles.date}>
+					{splicedDate[0]} {splicedDate[1]} {splicedDate[2]} {splicedDate[3]}
 				</ListItem.Subtitle>
+				<ListItem.Subtitle style={styles.date}>at {time} PST</ListItem.Subtitle>
 				<Card wrapperStyle={styles.wrapper} containerStyle={styles.container}>
 					<Avatar
 						source={{ uri: photoURL }}
@@ -103,23 +114,24 @@ location,
 					<ListItem.Subtitle style={{ alignSelf: 'center' }}>
 						{phoneNumber}
 					</ListItem.Subtitle>
-					<Divider style={{ marginTop: 12 }} />
-					<View style={styles.row}>
-						<Text>See More Posts</Text>
-						<Icon
-							type='material-community'
-							name='chevron-right'
-							color={colors.onyx}
-							size={24}
-							onPress={() =>
-								navigation.navigate('UserProfileScreen', { profileID })
-							}
-						/>
-					</View>
+					<Divider style={{ marginTop: 12, width: '100%', marginBottom: 8 }} />
+					<TouchableOpacity
+						onPress={() =>
+							navigation.navigate('UserProfileScreen', { profileID })
+						}
+					>
+						<View style={styles.row}>
+							<Text>See More Posts</Text>
+							<Icon
+								type='material-community'
+								name='chevron-right'
+								color={colors.onyx}
+								size={24}
+							/>
+						</View>
+					</TouchableOpacity>
 				</Card>
-				{location ? <UserMap
-					location={location}
-				/> : null}
+				{location ? <UserMap location={location} /> : null}
 			</Card>
 		</ScrollView>
 	);
@@ -156,7 +168,7 @@ const styles = StyleSheet.create({
 	contentText: {
 		fontSize: 14,
 		paddingTop: 4,
-		paddingBottom: 8,
+		// paddingBottom: 8,
 	},
 	notrow: {
 		flexDirection: 'column',
@@ -169,9 +181,8 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		fontSize: 12,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
 		padding: 8,
-		width: '100%',
 	},
 	titleText: {
 		fontSize: 14,
@@ -182,5 +193,8 @@ const styles = StyleSheet.create({
 	cardImage: {
 		width: 400,
 		height: 400,
+	},
+	date: {
+		paddingTop: 8,
 	},
 });

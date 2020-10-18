@@ -68,31 +68,40 @@ export default function CategoryModal({
 		},
 	];
 	return (
-		<FlatList
-			data={categories}
-			keyExtractor={categories.label}
-			numColumns={3}
-			renderItem={({ item }) => (
-				<Icon
-					type='material-community'
-					color='white'
-					name={item.icon}
-					size={56}
-					label={item.label}
-					onPress={() => {
-						toggleOverlay();
-						updateCategory(item.label);
-					}}
-					style={{
-						flexDirection: 'row',
-						backgroundColor: item.backgroundColor,
-						borderRadius: 56,
-						margin: 8,
-						padding: 8,
-					}}
-				/>
-			)}
-		/>
+		<>
+			<FlatList
+				data={categories}
+				keyExtractor={categories.label}
+				numColumns={3}
+				renderItem={({ item }) => (
+					<Icon
+						type='material-community'
+						color='white'
+						name={item.icon}
+						size={56}
+						label={item.label}
+						onPress={() => {
+							toggleOverlay();
+							updateCategory(item.label);
+						}}
+						style={{
+							flexDirection: 'row',
+							backgroundColor: item.backgroundColor,
+							borderRadius: 56,
+							margin: 8,
+							padding: 8,
+						}}
+					/>
+				)}
+			/>
+
+			<Icon
+				type='material-community'
+				name='chevron-down'
+				color={colors.onyx}
+				onPress={toggleOverlay}
+			/>
+		</>
 	);
 }
 

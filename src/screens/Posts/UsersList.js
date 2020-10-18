@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, FlatList } from 'react-native';
 import * as db from '../../config/firebaseConfig';
 import { Icon, Avatar, Card, ListItem, Button } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import colors from '../../styles/colors';
 
 export default function UsersList({ authorID }) {
 	const [userPosts, setUserPosts] = useState(null);
@@ -84,13 +85,18 @@ const UserPostItem = ({
 
 	return (
 		<Card
-			containerStyle={{ width: 300 }}
+			containerStyle={{
+				padding: 0,
+				marginTop: 16,
+				backgroundColor: colors.grey,
+			}}
 			wrapperStyle={{
 				flexDirection: 'row',
 				justifyContent: 'space-between',
-				// marginLeft: 16,
-				// marginRight: 16,
 				alignItems: 'center',
+
+				heigth: 75,
+				marginTop: 8,
 			}}
 		>
 			<Card.Image
@@ -111,10 +117,10 @@ const UserPostItem = ({
 			<Icon
 				type='material-community'
 				name='chevron-right'
-				size={24}
+				size={16}
 				color='black'
 				onPress={goToDetails}
-				style={{ margin: 0, padding: 0 }}
+				style={{ margin: 0, padding: 16 }}
 			/>
 		</Card>
 	);
@@ -122,14 +128,14 @@ const UserPostItem = ({
 const styles = StyleSheet.create({
 	view: {
 		height: 450,
-		minWidth: 320,
-		maxWidth: 500,
+
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',
 	},
 	text: {
 		marginLeft: 16,
+		fontSize: 16,
 	},
 	row: {
 		flexDirection: 'row',

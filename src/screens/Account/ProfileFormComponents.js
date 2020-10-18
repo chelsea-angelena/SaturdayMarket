@@ -35,6 +35,8 @@ export const FormButton = ({ title, buttonType, buttonColor, ...rest }) => (
 	/>
 );
 
+
+
 export const ErrorMessage = ({ errorValue }) => (
 	<View style={styles.container}>
 		<Text style={styles.errorText}>{errorValue}</Text>

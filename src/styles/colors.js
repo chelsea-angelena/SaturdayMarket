@@ -1,9 +1,10 @@
 const colors = {
+	newBlue: 'hsl(221, 51%, 16%)',
 	danger: 'hsl(350, 96%, 43%)',
-	primaryYelllow: 'hsl(42, 100%, 50%)',
+	primaryYellow: 'hsl(42, 100%, 50%)',
 	primaryBlue: '#4E91DE',
 	rust: '#D97D54',
-
+	ochre: '#F57C00',
 	paleSteel: '#ECEFF1',
 	steel: '#CFD8DC',
 	slate: '#6E8CA0',

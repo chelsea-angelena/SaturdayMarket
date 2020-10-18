@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ActivityIndicator, Image, Text, View, StyleSheet } from 'react-native';
 import { Avatar, ListItem, Card, Button, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
@@ -6,33 +6,36 @@ import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import * as db from '../../config/firebaseConfig';
 
 const PostListItem = ({
 	item,
 	title,
-	created,
 	description,
 	price,
 	category,
 	image,
 	postedBy,
 	altEmail,
-	location,
+	postId,
+	latitude,
+	longitude,
 	email,
+	// created,
 	phoneNumber,
 	authorID,
 	userPhoto,
 }) => {
-	
 
-	let date = created.toDate();
+	let date = item.created.toDate();
 	let dateArr = date.toString().split(' ');
 	let splicedDate = dateArr.splice(0, 4);
 	let splicedTime = dateArr.splice(0, 1);
-	let oneMore = splicedTime[0].split('');
-	let another = oneMore.splice(0, 5);
-	let time = another.join('');
+	let split = splicedTime[0].split('');
+	let timeSplice = split.splice(0, 5);
+	let time = timeSplice.join('');
 
+	console.log(authorID);
 	const navigation = useNavigation();
 	const goToDetails = () => {
 		navigation.navigate('ListItemDetails', { item });
@@ -68,13 +71,16 @@ const PostListItem = ({
 					}}
 				/>
 				<View style={styles.column}>
-					<ListItem.Subtitle style={styles.posted}>PostedBy:</ListItem.Subtitle>
+					<ListItem.Subtitle style={styles.posted}>Post By:</ListItem.Subtitle>
 					<ListItem.Title style={{ paddingTop: 4, paddingBottom: 8 }}>
 						{postedBy}
 					</ListItem.Title>
-
+					<ListItem.Subtitle style={styles.date}>Posted on:</ListItem.Subtitle>
 					<ListItem.Subtitle style={styles.date}>
-						{splicedDate[0]} {splicedDate[1]} {splicedDate[2]}at: {time} PST
+						{splicedDate[0]} {splicedDate[1]} {splicedDate[2]} {splicedDate[3]}
+					</ListItem.Subtitle>
+					<ListItem.Subtitle style={styles.date}>
+						at {time} PST
 					</ListItem.Subtitle>
 				</View>
 				<Icon
@@ -104,7 +110,7 @@ const styles = StyleSheet.create({
 		paddingRight: 16,
 		paddingLeft: 16,
 		width: wp('100%'),
-		paddingBottom: 32,
+		paddingBottom: 16,
 	},
 	text: {
 		paddingLeft: 16,

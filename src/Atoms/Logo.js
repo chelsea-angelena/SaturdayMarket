@@ -6,13 +6,13 @@ import { useFonts } from 'expo-font';
 
 const Logo = ({ title, subtitle }) => {
 	return (
-		<>
+		<View style={styles.view}>
 			<Image
-				source={require('../../assets/icon.png')}
+				source={require('../../assets/18.png')}
 				alt='Street Market Logo'
 				style={styles.logo}
 			/>
-		</>
+		</View>
 	);
 };
 
@@ -21,40 +21,18 @@ export default Logo;
 const styles = StyleSheet.create({
 	logo: {
 		alignSelf: 'center',
-		marginTop: 8,
-		marginBottom: 8,
-		height: 200,
-		width: 200,
-		resizeMode: 'contain',
+		marginTop: 16,
+		marginLeft: 25,
+		height: 250,
+		width: 400,
+		backgroundColor: colors.white,
 	},
-	// textSignUp: {
-	// 	display: 'flex',
-	// 	color: 'white',
-	// 	width: 300,
-	// 	alignSelf: 'center',
-	// 	alignItems: 'center',
-	// 	justifyContent: 'center',
-	// 	marginLeft: 110,
-	// 	marginRight: 100,
-	// 	fontWeight: 'bold',
-	// 	fontSize: 18,
-	// },
-	// title: {
-	// 	color: colors.onyx,
-	// 	fontFamily: 'Lovelo',
-	// 	fontSize: 39,
-	// 	letterSpacing: 1.25,
-	// },
-	// subtitle: {
-	// 	color: colors.primaryBlue,
-	// 	fontSize: 16,
-	// 	fontFamily: 'Econ',
-	// 	fontWeight: 'normal',
-	// 	letterSpacing: 1.25,
-	// 	marginBottom: 24,
-	// },
-	// textView: {
-	// 	alignItems: 'center',
-	// 	justifyContent: 'center',
-	// },
+	view: {
+		width: '100%',
+		height: 275,
+		alignItems: 'center',
+		justifyContent: 'flex-start',
+		alignSelf: 'center',
+		backgroundColor: colors.white,
+	},
 });

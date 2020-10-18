@@ -2,13 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import * as Location from 'expo-location';
 
-// let location = {
-// 	coords: {
-// 		latitude: '',
-// 		longitude: '',
-// 	},
-// };
-
 const useLocation = () => {
 	let [location, setLocation] = useState({
 		coords: { latitude: '', longitude: '' },

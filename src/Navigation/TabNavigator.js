@@ -13,7 +13,7 @@ export default function TabNavigator({ navigation, user }) {
 			activeTintColor={colors.snow}
 			inactiveTintColor={colors.white}
 			barStyle={{
-				backgroundColor: colors.drab,
+				backgroundColor: 'hsl(221, 51%, 16%)',
 			}}
 			initialRoute='PostsStack'
 			screenOptions={{ headerShown: false }}
@@ -46,11 +46,7 @@ export default function TabNavigator({ navigation, user }) {
 				options={{
 					tabBarLabel: 'New Post',
 					tabBarIcon: ({ color }) => (
-						<MaterialCommunityIcons
-							name='plus-outline'
-							color={color}
-							size={26}
-						/>
+						<MaterialCommunityIcons name='plus' color={color} size={32} />
 					),
 				}}
 			/>
