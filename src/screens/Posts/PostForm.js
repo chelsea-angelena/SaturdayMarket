@@ -20,9 +20,9 @@ import useLocation from '../../hooks/useLocation';
 // import CategoryModal from './Categories';
 import colors from '../../styles/colors';
 import Logo from '../../Atoms/Logo';
-// import UserMap from './UserMap';
+import UserMap from './UserMap';
 import { useNavigation } from '@react-navigation/native';
-import Screen from '../../Atoms/Screen';
+// import Screen from '../../Atoms/Screen';
 
 const validationSchema = Yup.object().shape({
 	title: Yup.string()
@@ -89,16 +89,12 @@ export default function PostForm() {
 					description: '',
 					category: '',
 					price: '',
-					// location: {
-					// 	latitude: '',
-					// 	longitude: '',
-					// },
 					phoneNumber: '',
 					altEmail: '',
 					images: [],
 				}}
 				onSubmit={(values, { resetForm }) => {
-					submitPostForm(values, location);
+					submitPostForm(values);
 					resetForm({ values: '' });
 				}}
 			>
@@ -113,87 +109,86 @@ export default function PostForm() {
 					handleBlur,
 					isSubmitting,
 				}) => (
-					<Screen>
-						<KeyboardAwareScrollView>
-							<View style={styles.container}>
-								<Card style={styles.wrapper}>
-									<Logo />
-									<FormImagePicker
-										style={styles.picker}
-										type='Blob'
-										name='images'
-									/>
-									<FormInput
-										name='title'
-										value={values.title}
-										onChangeText={handleChange('title')}
-										placeholder='Enter a Title'
-										autoCapitalize='none'
-										onBlur={handleBlur('title')}
-									/>
-									<ErrorMessage errorValue={touched.title && errors.title} />
-									<FormInput
-										name='description'
-										value={values.description}
-										onChangeText={handleChange('description')}
-										placeholder='Description'
-										multiline={true}
-										onBlur={handleBlur('description')}
-									/>
-									<ErrorMessage
-										errorValue={touched.description && errors.description}
-									/>
-									<FormInput
-										name='price'
-										value={values.price}
-										onChangeText={handleChange('price')}
-										placeholder='$ 0.00    (enter price)'
-										onBlur={handleBlur('price')}
-									/>
-									<ErrorMessage errorValue={touched.price && errors.price} />
-									<FormInput
-										name='altEmail'
-										value={values.altEmail}
-										onChangeText={handleChange('altEmail')}
-										placeholder='(optional alt contact)'
-										iconName='ios-mail'
-										iconColor='#2C384A'
-										onBlur={handleBlur('altEmail')}
-									/>
-									<ErrorMessage
-										errorValue={touched.altEmail && errors.altEmail}
-									/>
-									<FormInput
-										name='phoneNumber'
-										value={values.phoneNumber}
-										onChangeText={handleChange('phoneNumber')}
-										placeholder='(optional alt contact)'
-										iconName='ios-call'
-										iconColor='#2C384A'
-										onBlur={handleBlur('phoneNumber')}
-									/>
-									<ErrorMessage
-										errorValue={touched.phoneNumber && errors.phoneNumber}
-									/>
-									{/* <AppText style={styles.text}>Choose a category</AppText>
+					<KeyboardAwareScrollView>
+						<View style={styles.container}>
+							<Card style={styles.wrapper}>
+								<Logo />
+								<FormImagePicker
+									style={styles.picker}
+									type='Blob'
+									name='images'
+								/>
+								<FormInput
+									name='title'
+									value={values.title}
+									onChangeText={handleChange('title')}
+									placeholder='Enter a Title'
+									autoCapitalize='none'
+									onBlur={handleBlur('title')}
+								/>
+								<ErrorMessage errorValue={touched.title && errors.title} />
+								<FormInput
+									name='description'
+									value={values.description}
+									onChangeText={handleChange('description')}
+									placeholder='Description'
+									multiline={true}
+									onBlur={handleBlur('description')}
+								/>
+								<ErrorMessage
+									errorValue={touched.description && errors.description}
+								/>
+								<FormInput
+									name='price'
+									value={values.price}
+									onChangeText={handleChange('price')}
+									placeholder='$ 0.00    (enter price)'
+									onBlur={handleBlur('price')}
+								/>
+								<ErrorMessage errorValue={touched.price && errors.price} />
+								<FormInput
+									name='altEmail'
+									value={values.altEmail}
+									onChangeText={handleChange('altEmail')}
+									placeholder='(optional alt contact)'
+									iconName='ios-mail'
+									iconColor='#2C384A'
+									onBlur={handleBlur('altEmail')}
+								/>
+								<ErrorMessage
+									errorValue={touched.altEmail && errors.altEmail}
+								/>
+								<FormInput
+									name='phoneNumber'
+									value={values.phoneNumber}
+									onChangeText={handleChange('phoneNumber')}
+									placeholder='(optional alt contact)'
+									iconName='ios-call'
+									iconColor='#2C384A'
+									onBlur={handleBlur('phoneNumber')}
+								/>
+								<ErrorMessage
+									errorValue={touched.phoneNumber && errors.phoneNumber}
+								/>
+								{/* <AppText style={styles.text}>Choose a category</AppText>
 									<Icon
 										type='material-community'
 										name='chevron-down'
 										color={colors.onyx}
 										onPress={toggleOverlay}
 									/> */}
-									<FormInput
-										name='category'
-										value={values.category}
-										onChangeText={handleChange('category')}
-										placeholder='Category'
-										autoCapitalize='none'
-										onBlur={handleBlur('category')}
-									/>
-									<ErrorMessage
-										errorValue={touched.category && errors.category}
-									/>
-									{/* <Overlay
+								<FormInput
+									name='category'
+									value={values.category}
+									onChangeText={handleChange('category')}
+									placeholder='Category'
+									autoCapitalize='none'
+									onBlur={handleBlur('category')}
+								/>
+								<ErrorMessage
+									errorValue={touched.category && errors.category}
+								/>
+								{/* <Overlay
 										overlayStyle={{ height: 350 }}
 										isVisible={visible}
 										onBackdropPress={toggleOverlay}
@@ -205,32 +200,31 @@ export default function PostForm() {
 											updateCategory={setCategory}
 										/>
 									</Overlay> */}
-									{/* <CheckBox
-										title='Include a Map with your location?'
-										status={checked ? 'checked' : 'unchecked'}
-										onPress={() => setChecked(!checked)}
-										containerStyle={styles.box}
-									/> */}
-									{/* {checked ? <UserMap location={location} /> : null} */}
-									<View style={styles.buttonContainer}>
-										<PostFormButton
-											buttonType='outline'
-											onPress={handleSubmit}
-											title='Submit Post'
-											buttonColor={colors.slate}
-											disabled={!isValid || isSubmitting}
-											loading={isSubmitting}
-											disabledStyle={{
-												backgroundColor: colors.primaryBlue,
-												color: 'red',
-											}}
-										/>
-										{/* <ErrorMessage errorValue={errors.general} /> */}
-									</View>
-								</Card>
-							</View>
-						</KeyboardAwareScrollView>
-					</Screen>
+								<CheckBox
+									title='Include a Map with your location?'
+									status={checked ? 'checked' : 'unchecked'}
+									onPress={() => setChecked(!checked)}
+									containerStyle={styles.box}
+								/>
+								{checked ? <UserMap location={location} /> : null}
+								<View style={styles.buttonContainer}>
+									<PostFormButton
+										buttonType='outline'
+										onPress={handleSubmit}
+										title='Submit Post'
+										buttonColor={colors.slate}
+										disabled={!isValid || isSubmitting}
+										loading={isSubmitting}
+										disabledStyle={{
+											backgroundColor: colors.primaryBlue,
+											color: 'red',
+										}}
+									/>
+									<ErrorMessage errorValue={errors.general} />
+								</View>
+							</Card>
+						</View>
+					</KeyboardAwareScrollView>
 				)}
 			</Formik>
 		</>

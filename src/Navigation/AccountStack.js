@@ -8,11 +8,31 @@ const Stack = createStackNavigator();
 const AccountStack = ({ navigation }) => {
 	return (
 		<Stack.Navigator>
-			<Stack.Screen name='Home' component={Home} options={{title: "Account"}} />
-			<Stack.Screen name='ProfileScreen' component={ProfileScreen} options={{title: "Profile" }} />
-			<Stack.Screen name='EditProfile' component={EditProfile} options={{title: "Edit Profile"}}/>
-			<Stack.Screen name='ListItemDetails' component={ListItemDetails} options={{title: "Details"}} />
-			<Stack.Screen name='UserProfileScreen' component={UserProfileScreen} options={{title: "Details"}}/>
+			<Stack.Screen
+				name='Home'
+				component={Home}
+				options={{ title: 'Account' }}
+			/>
+			<Stack.Screen
+				name='ProfileScreen'
+				component={ProfileScreen}
+				options={{ title: 'Profile' }}
+			/>
+			<Stack.Screen
+				name='EditProfile'
+				component={EditProfile}
+				options={{ title: 'Edit Profile' }}
+			/>
+			<Stack.Screen
+				name='ListItemDetails'
+				component={ListItemDetails}
+				options={{ title: 'Details' }}
+			/>
+			<Stack.Screen
+				name='UserProfileScreen'
+				component={UserProfileScreen}
+				options={{ title: 'Details' }}
+			/>
 		</Stack.Navigator>
 	);
 };

@@ -47,6 +47,10 @@ export default function ProfileScreen({ user, signOut, route }) {
 			setError(e);
 		}
 	};
+	const logOut = async () => {
+		db.signOut();
+		navigation.navigate('SignInScreen');
+	};
 
 	useEffect(() => {
 		getMyPosts();
@@ -154,7 +158,7 @@ export default function ProfileScreen({ user, signOut, route }) {
 							type: 'ionicon',
 							color: colors.primaryYellow,
 						}}
-						onPress={signOut}
+						onPress={logOut}
 					/>
 				</View>
 			</Card>
@@ -176,6 +180,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		alignItems: 'center',
 		alignSelf: 'center',
+		height: 1000,
 	},
 	socialRow: {
 		flexDirection: 'row',

@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { ThemeProvider } from 'react-native-elements';
-import theme from './src/styles/theme';
+import { ThemeProvider, theme } from 'react-native-elements';
+// import theme from './src/styles/theme';
 // import { SignInScreen, SignUpScreen } from './src/screens/Auth';
 import { NavigationContainer } from '@react-navigation/native';
 import useAuth from './src/hooks/useAuth';
@@ -37,9 +37,9 @@ export default function App() {
 	return (
 		<UserContext.Provider value={user}>
 			<ThemeProvider theme={theme}>
-			<NavigationContainer>
-				{!user ? <AuthStack /> : <TabNavigator />}
-			</NavigationContainer>
+				<NavigationContainer>
+					{!user ? <AuthStack /> : <TabNavigator />}
+				</NavigationContainer>
 			</ThemeProvider>
 		</UserContext.Provider>
 	);

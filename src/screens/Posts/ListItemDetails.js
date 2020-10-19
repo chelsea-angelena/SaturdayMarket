@@ -29,7 +29,7 @@ const ListItemDetails = ({ navigation, route }, props) => {
 	let profileID = authorID;
 	let postId = item.id;
 
-let listItemDate = created
+	let listItemDate = created;
 
 	let dateFormat = listItemDate.toDate();
 	let dateArr = dateFormat.toString().split(' ');
@@ -150,7 +150,7 @@ let listItemDate = created
 							</TouchableOpacity>
 						</Card>
 					</View>
-					{/* {location ? <UserMap location={location} /> : null} */}
+					<UserMap location={location} />
 				</Card>
 			</View>
 		</ScrollView>
