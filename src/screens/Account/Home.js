@@ -14,14 +14,9 @@ export default function Home(props) {
 	};
 
 	return (
-		<SafeAreaView style={styles.view}>
+		<SafeAreaView>
 			<ProfileScreen user={user} signOut={signOut} />
 		</SafeAreaView>
 	);
 }
 
-const styles = StyleSheet.create({
-	view: {
-		flex: 1,
-	},
-});

@@ -2,51 +2,58 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ActivityIndicator, Image, Text, View, StyleSheet } from 'react-native';
 import { Avatar, ListItem, Card, Button, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import {
-	widthPercentageToDP as wp,
-	heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+
 import * as db from '../../config/firebaseConfig';
 
 const PostListItem = ({
 	item,
-	title,
-	description,
-	price,
-	category,
-	image,
-	postedBy,
-	altEmail,
-	postId,
-	latitude,
-	longitude,
-	email,
-	// created,
-	phoneNumber,
-	authorID,
-	userPhoto,
+	// title,
+	// description,
+	// price,
+	// category,
+	// image,
+	// postedBy,
+	// altEmail,
+	// postId,
+	// latitude,
+	// longitude,
+	// email,
+	// // created,
+	// phoneNumber,
+	// authorID,
+	// userPhoto,
 }) => {
+	const { created, authorID, post, userData } = item;
+	const { description, title, category, image, location, price } = post;
+	const { latitude, longitude } = location;
+	const {
+		displayName,
+		altEmail,
+		// postId,
+		email,
+		phoneNumber,
+		photoURL,
+	} = userData;
 
-	let date = item.created.toDate();
+	let date = created.toDate();
 	let dateArr = date.toString().split(' ');
 	let splicedDate = dateArr.splice(0, 4);
 	let splicedTime = dateArr.splice(0, 1);
 	let split = splicedTime[0].split('');
 	let timeSplice = split.splice(0, 5);
 	let time = timeSplice.join('');
-
-	console.log(authorID);
 	const navigation = useNavigation();
+
 	const goToDetails = () => {
 		navigation.navigate('ListItemDetails', { item });
 	};
 
 	return (
-		<Card wrapperStyle={styles.wrapper} containerStyle={styles.container}>
+		<Card containerStyle={styles.container} wrapperStyle={styles.wrapper}>
 			<Image
 				PlaceholderContent={<ActivityIndicator />}
 				resizeMode='cover'
-				style={{ height: 200 }}
+				style={{ height: 250 }}
 				source={{ uri: image }}
 				alt='Posted Image'
 				// containerStyle={styles.imageContainer}
@@ -67,13 +74,13 @@ const PostListItem = ({
 					rounded
 					size='medium'
 					source={{
-						uri: userPhoto,
+						uri: photoURL,
 					}}
 				/>
 				<View style={styles.column}>
 					<ListItem.Subtitle style={styles.posted}>Post By:</ListItem.Subtitle>
 					<ListItem.Title style={{ paddingTop: 4, paddingBottom: 8 }}>
-						{postedBy}
+						{displayName}
 					</ListItem.Title>
 					<ListItem.Subtitle style={styles.date}>Posted on:</ListItem.Subtitle>
 					<ListItem.Subtitle style={styles.date}>
@@ -101,15 +108,19 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',
-		// marginTop: 32,
+		flex: 1,
+
+		width: '100%',
+		alignItems: 'center',
+		justifyContent: 'center',
+		alignSelf: 'center',
 	},
 	wrapper: {
 		alignSelf: 'center',
-		// backgroundColor: 'pink',
 		maxWidth: 500,
 		paddingRight: 16,
 		paddingLeft: 16,
-		width: wp('100%'),
+		width: '100%',
 		paddingBottom: 16,
 	},
 	text: {

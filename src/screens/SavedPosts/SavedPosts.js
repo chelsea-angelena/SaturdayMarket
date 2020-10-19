@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React, { useEffect, useState, useContext } from 'react';
 import {
 	Image,
@@ -12,11 +13,13 @@ import * as db from '../../config/firebaseConfig';
 import { UserContext } from '../../../App';
 import { useNavigation } from '@react-navigation/native';
 import SavedPostItem from './SavedPostItem';
-import Screen from '../../Atoms/Screen';
+// import Screen from '../../Atoms/Screen';
+
 export default function SavedPosts() {
 	const [savedList, setSavedList] = useState([]);
 	const [postedId, setPostedId] = useState([]);
 	const [postData, setPostData] = useState([]);
+	const [error, setError] = useState(null);
 	const [errorMessage, setErrorMessage] = useState('');
 	const user = useContext(UserContext);
 	const navigation = useNavigation();
@@ -36,7 +39,7 @@ export default function SavedPosts() {
 			let result = await db.getSaveData(postedId);
 			setPostData(result);
 		} catch (e) {
-			console.log(e);
+			setErrorMessage(e);
 		}
 	};
 
@@ -48,10 +51,10 @@ export default function SavedPosts() {
 		return <Text>Loading...</Text>;
 	}
 	return (
-		<Screen>
+		// <Screen>
 			<FlatList
 				data={postData}
-				keyExtractor={(postData) => postData.id}
+				keyExtractor={postData.postId}
 				renderItem={({ item }) => {
 					return (
 						<SavedPostItem
@@ -68,10 +71,11 @@ export default function SavedPosts() {
 							phoneNumber={item.userData.phoneNumber}
 							userPhoto={item.userData.photoURL}
 							authorID={item.authorID}
+							savedPostId={item.id}
 						/>
 					);
 				}}
 			/>
-		</Screen>
+		// </Screen>
 	);
 }

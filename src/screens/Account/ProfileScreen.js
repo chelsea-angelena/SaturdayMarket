@@ -29,17 +29,23 @@ import Screen from '../../Atoms/Screen';
 export default function ProfileScreen({ user, signOut, route }) {
 	const [myPosts, setMyPosts] = useState([]);
 	const [visible, setVisible] = useState(false);
+	const [error, setError] = useState(null);
 	// const user = useContext(UserContext);
 	let userId = user.uid;
 
+	console.log(user);
 	const toggleOverlay = () => {
 		setVisible(!visible);
 	};
 	const navigation = useNavigation();
 
 	const getMyPosts = async () => {
-		let result = await db.getUserPosts(userId);
-		setMyPosts(result);
+		try {
+			let result = await db.getUserPosts(userId);
+			setMyPosts(result);
+		} catch (e) {
+			setError(e);
+		}
 	};
 
 	useEffect(() => {
@@ -49,20 +55,6 @@ export default function ProfileScreen({ user, signOut, route }) {
 	if (!userId) {
 		return <Text>Loading....</Text>;
 	}
-
-	// const getProfileData = async () => {
-	// 	try {
-	// 		let result = await db.getUserProfile(userId);
-	// 		console.log(result, 'userData result');
-	// 	} catch (e) {
-	// 		console.log(e);
-	// 	}
-	// };
-
-	// useEffect(() => {
-	// 	getProfileData();
-	// }, []);
-
 	if (!user) {
 		return <Text>Loading....</Text>;
 	}

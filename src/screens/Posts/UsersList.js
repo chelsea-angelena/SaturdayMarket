@@ -93,7 +93,7 @@ const UserPostItem = ({
 			wrapperStyle={{
 				flexDirection: 'row',
 				justifyContent: 'space-between',
-				alignItems: 'center',
+				// alignItems: 'center',
 
 				heigth: 75,
 				marginTop: 8,
@@ -129,9 +129,9 @@ const styles = StyleSheet.create({
 	view: {
 		height: 450,
 
-		alignItems: 'center',
-		justifyContent: 'center',
-		alignSelf: 'center',
+		// alignItems: 'center',
+		// justifyContent: 'center',
+		// alignSelf: 'center',
 	},
 	text: {
 		marginLeft: 16,

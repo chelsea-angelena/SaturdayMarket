@@ -8,7 +8,7 @@ const Logo = ({ title, subtitle }) => {
 	return (
 		<View style={styles.view}>
 			<Image
-				source={require('../../assets/18.png')}
+				source={require('../assets/18.png')}
 				alt='Street Market Logo'
 				style={styles.logo}
 			/>
@@ -20,7 +20,7 @@ export default Logo;
 
 const styles = StyleSheet.create({
 	logo: {
-		alignSelf: 'center',
+
 		marginTop: 16,
 		marginLeft: 25,
 		height: 250,

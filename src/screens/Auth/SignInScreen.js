@@ -1,7 +1,7 @@
+import 'react-native-gesture-handler';
 import React, { useState, Component, Fragment } from 'react';
-import { StyleSheet, SafeAreaView, View, TouchableOpacity } from 'react-native';
-
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
@@ -38,11 +38,10 @@ const SignInScreen = () => {
 			const response = await db.loginWithEmail(email, password);
 			if (response.user) {
 				setUser(response);
-				navigation.navigate('TabNavigator');
+				// navigation.navigate('TabNav', { screen: 'PostsStack', screen:"PostsListScreen" });
 			}
 		} catch (error) {
 			setError(error.message);
-			setSubmitting(false);
 		} finally {
 			setSubmitting(false);
 		}
@@ -98,8 +97,7 @@ const SignInScreen = () => {
 									onPress={handleSubmit}
 									title='LOGIN'
 									buttonColor={colors.ochre}
-									disabled={!isValid}
-									loading={isSubmitting}
+									disabled={!isValid || isSubmitting}
 								/>
 							</View>
 							<ErrorMessage errorValue={errors.general} />
@@ -121,7 +119,7 @@ const SignInScreen = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		// flex: 1,
 		backgroundColor: colors.white,
 		paddingTop: 15,
 	},

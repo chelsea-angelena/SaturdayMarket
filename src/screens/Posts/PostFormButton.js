@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native-elements';
 
-const FormButton = ({
+const PostFormButton = ({
 	title,
 	buttonType,
 	disabledStyle,
@@ -22,4 +22,4 @@ const FormButton = ({
 	/>
 );
 
-export default FormButton;
+export default PostFormButton;

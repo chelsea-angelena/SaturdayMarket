@@ -26,6 +26,7 @@ const SavedPostItem = ({
 	created,
 	description,
 	price,
+	savedPostId,
 	category,
 	image,
 	postedBy,
@@ -47,7 +48,13 @@ const SavedPostItem = ({
 	const goToDetails = () => {
 		navigation.navigate('ListItemDetails', { item });
 	};
-
+	const user = useContext(UserContext);
+	const userId = user.uid;
+	console.log(userId, 'userId');
+	const postId = item.postedId;
+	const deletePost = async () => {
+		await db.deleteSavedPost(userId, postId);
+	};
 	return (
 		<Card wrapperStyle={styles.wrapper} containerStyle={styles.container}>
 			<ListItem style={styles.list}>
@@ -71,6 +78,15 @@ const SavedPostItem = ({
 					onPress={goToDetails}
 				/>
 			</ListItem>
+			{/*
+			<Icon
+				type='material-community'
+				name='trash-can-outline'
+				size={26}
+				color='black'
+				// style={{ marginLeft: 24 }}
+				onPress={deletePost}
+			/> */}
 		</Card>
 	);
 };

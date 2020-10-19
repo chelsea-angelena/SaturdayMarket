@@ -16,7 +16,7 @@ import MaterialCommunityIcon from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import useSWR from 'swr';
 import UsersList from './UsersList';
-import Screen from '../../Atoms/Screen';
+// import Screen from '../../Atoms/Screen';
 
 export default function UserProfileScreen(props, { route, navigation }) {
 	const [visible, setVisible] = useState(false);
@@ -40,56 +40,58 @@ export default function UserProfileScreen(props, { route, navigation }) {
 
 	return (
 		<ScrollView>
-			<Screen style={styles.view}>
-				<Card containerStyle={styles.container} wrapperStyle={styles.wrapper}>
-					<Avatar rounded size='xlarge' source={{ uri: userData.photoURL }} />
+			{/* <Screen> */}
+				<View style={styles.view}>
+					<Card containerStyle={styles.container} wrapperStyle={styles.wrapper}>
+						<Avatar rounded size='xlarge' source={{ uri: userData.photoURL }} />
 
-					<Card.Title style={{ marginTop: 24 }}>
-						{userData.displayName}
-					</Card.Title>
-					<ListItem.Subtitle style={{ padding: 8 }}>
-						{userData.email}
-					</ListItem.Subtitle>
-					{userData.phoneNumber ? (
-						<ListItem.Subtitle style={{ padding: 8 }}></ListItem.Subtitle>
-					) : null}
-					{userData.phoneNumber}
-					<Divider />
-					<View>
+						<Card.Title style={{ marginTop: 24 }}>
+							{userData.displayName}
+						</Card.Title>
+						<ListItem.Subtitle style={{ padding: 8 }}>
+							{userData.email}
+						</ListItem.Subtitle>
+						{userData.phoneNumber ? (
+							<ListItem.Subtitle style={{ padding: 8 }}></ListItem.Subtitle>
+						) : null}
+						{userData.phoneNumber}
+						<Divider />
 						<View>
-							<Divider
-								style={{
-									margin: 24,
-									width: 300,
-									padding: 0.5,
-									backgroundColor: colors.drab,
-								}}
-							/>
-							<ListItem.Subtitle style={{ alignSelf: 'center', padding: 8 }}>
-								Click to see more posts from
-							</ListItem.Subtitle>
-							<Card.Title>{userData.displayName}</Card.Title>
-							<Icon
-								type='material-community'
-								color='black'
-								size={32}
-								name='chevron-down'
-								onPress={toggleOverlay}
-							/>
-						</View>
+							<View>
+								<Divider
+									style={{
+										margin: 24,
+										width: 300,
+										padding: 0.5,
+										backgroundColor: colors.drab,
+									}}
+								/>
+								<ListItem.Subtitle style={{ alignSelf: 'center', padding: 8 }}>
+									Click to see more posts from
+								</ListItem.Subtitle>
+								<Card.Title>{userData.displayName}</Card.Title>
+								<Icon
+									type='material-community'
+									color='black'
+									size={32}
+									name='chevron-down'
+									onPress={toggleOverlay}
+								/>
+							</View>
 
-						<Overlay
-							fullScreen={false}
-							animationType='slide'
-							isVisible={visible}
-							transparent={true}
-							onBackdropPress={toggleOverlay}
-						>
-							<UsersList authorID={profileID} />
-						</Overlay>
-					</View>
-				</Card>
-			</Screen>
+							<Overlay
+								fullScreen={false}
+								animationType='slide'
+								isVisible={visible}
+								transparent={true}
+								onBackdropPress={toggleOverlay}
+							>
+								<UsersList authorID={profileID} />
+							</Overlay>
+						</View>
+					</Card>
+				</View>
+			{/* </Screen> */}
 		</ScrollView>
 	);
 }
@@ -97,6 +99,7 @@ export default function UserProfileScreen(props, { route, navigation }) {
 const styles = StyleSheet.create({
 	image: {
 		width: 200,
+		alignSelf: 'center',
 	},
 
 	wrapper: {

@@ -18,35 +18,17 @@ import MyPostListItem from './MyPostListItem';
 
 export default function MyPostsList({ myPosts, signOut, userId, user }) {
 	return (
-		// 		<FlatList
-		// 			data={myPosts}
-		// 			keyExtractor={(myPosts) => myPosts.id}
-		// 			renderItem={({ item }) => {
-		// 	x			return <MyPostListItem item={item} signOut={signOut} userId={userId} />;
-		// 			}}
-		// 		/>
-		// 	);
-		// }
-
 		<>
 			<View style={styles.view}>
-				{/* <Card
-					wrapperStyle={{
-						alignItems: 'center',
-						justifyContent: 'space-evenly',
+				<FlatList
+					data={myPosts}
+					keyExtractor={(myPosts) => myPosts.id}
+					renderItem={({ item }) => {
+						return (
+							<MyPostListItem item={item} signOut={signOut} userId={userId} />
+						);
 					}}
-				> */}
-				<ListItem.Title style={{ marginTop: 24, marginBottom: 24 }}>
-					<FlatList
-						data={myPosts}
-						keyExtractor={(myPosts) => myPosts.id}
-						renderItem={({ item }) => {
-							return (
-								<MyPostListItem item={item} signOut={signOut} userId={userId} />
-							);
-						}}
-					/>
-				</ListItem.Title>
+				/>
 			</View>
 		</>
 	);
@@ -56,6 +38,7 @@ const styles = StyleSheet.create({
 	image: {
 		width: 200,
 		height: 200,
+
 	},
 	view: {
 		height: 450,

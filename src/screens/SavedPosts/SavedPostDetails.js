@@ -29,6 +29,8 @@ const SavedPostDetails = ({ navigation, route }, props) => {
 	let dateSPlit = dateArr.split(' ');
 	let splicedDate = dateSPlit.splice(0, 4);
 
+
+
 	// const savePost = async () => {
 	// 	deletePost;
 	// };
@@ -91,6 +93,16 @@ const SavedPostDetails = ({ navigation, route }, props) => {
 							navigation.navigate('UserProfileScreen', { profileID })
 						}
 					/>
+				</View>
+				<View>
+				<Icon
+					type='material-community'
+					name='trash-can-outline'
+					size={26}
+					color='black'
+					style={{ marginLeft: 24 }}
+					onPress={deletePost}
+				/>
 				</View>
 			</Card>
 			{/* <UserMap location={(latitude, longitude)} /> */}
