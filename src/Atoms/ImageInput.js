@@ -7,7 +7,7 @@ import {
 	Alert,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from 'react-native-image-picker';
 import colors from '../styles/colors';
 
 function ImageInput({ imageUri, onChangeImage }) {
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
 		width: 116,
 		height: 116,
 		margin: 24,
-
 	},
 	image: {
 		height: '100%',
