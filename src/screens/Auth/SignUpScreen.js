@@ -33,6 +33,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUpScreen = () => {
+	const [user, setUser] = useState(null);
 	const [userEmail, setUserEmail] = useState('');
 	const [uid, setUserId] = useState('');
 	const [displayName, setDisplayName] = useState('');
@@ -43,6 +44,7 @@ const SignUpScreen = () => {
 	const goToLogIn = () => {
 		navigation.navigate('SignInScreen');
 	};
+
 	const handleSignUp = async (values) => {
 		const { email, password, displayName } = values;
 		try {
@@ -54,10 +56,9 @@ const SignUpScreen = () => {
 				uid: response.user.uid,
 				displayName: displayName,
 			});
-			navigation.navigate('TabNavigator', { screen: 'PostsStackScreen' });
+			setUser(response);
 		} catch (error) {
 			setError(error.message);
-			setSubmitting(false);
 		} finally {
 			setSubmitting(false);
 		}

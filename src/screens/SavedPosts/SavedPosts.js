@@ -27,7 +27,6 @@ export default function SavedPosts() {
 
 	const getSavedList = async () => {
 		let result = await db.getSavedList(userId);
-
 		let postId = result.map((result) => result.postId);
 		setPostedId(postId);
 		postId ? dataResult() : null;

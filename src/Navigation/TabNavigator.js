@@ -1,13 +1,14 @@
 import React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { PostsStack, AccountStack, SavedPostsStack } from './index';
 import PostForm from '../screens/Posts/PostForm';
 import colors from '../styles/colors';
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
-export default function TabNavigator({ navigation, user }) {
+export default function TabNavigator({ navigation }) {
 	return (
 		<Tab.Navigator
 			activeTintColor={colors.snow}
@@ -21,7 +22,6 @@ export default function TabNavigator({ navigation, user }) {
 			<Tab.Screen
 				name='PostsStack'
 				component={PostsStack}
-				user={user}
 				options={{
 					tabBarLabel: 'Posts',
 					tabBarIcon: ({ color }) => (

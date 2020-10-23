@@ -26,14 +26,22 @@ import MyPostsList from './MyPostsList';
 import useSWR from 'swr';
 import Screen from '../../Atoms/Screen';
 
-export default function ProfileScreen({ user, signOut, route }) {
+export default function ProfileScreen({ route }) {
 	const [myPosts, setMyPosts] = useState([]);
 	const [visible, setVisible] = useState(false);
 	const [error, setError] = useState(null);
-	// const user = useContext(UserContext);
+	const user = useContext(UserContext);
+
+	const signOut = async () => {
+		try {
+			await db.signOut(user);
+		} catch (e) {
+			setError(e);
+		}
+	};
+
 	let userId = user.uid;
 
-	console.log(user);
 	const toggleOverlay = () => {
 		setVisible(!visible);
 	};

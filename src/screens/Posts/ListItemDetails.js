@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Icon, Card, ListItem, Divider, Avatar } from 'react-native-elements';
 import colors from '../../styles/colors';
-// import UserMap from '../Posts/UserMap';
+import UserMap from '../Posts/UserMap';
 import * as db from '../../config/firebaseConfig';
 import { UserContext } from '../../../App';
 

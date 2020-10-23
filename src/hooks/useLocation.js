@@ -6,12 +6,14 @@ const useLocation = () => {
 	let [location, setLocation] = useState({
 		coords: { latitude: '', longitude: '' },
 	});
-
+	console.log(location);
 	let [error, setError] = useState(null);
 
 	const getLocation = async () => {
 		try {
-			let { status } = await Location.requestPermissionsAsync();
+			let { status } = await Location.requestPermissionsAsync(
+				permissions.LOCATION
+			);
 			if (status !== 'granted') {
 				setError(error, 'error');
 			}

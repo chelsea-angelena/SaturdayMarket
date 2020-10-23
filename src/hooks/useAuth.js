@@ -4,14 +4,19 @@ import * as db from '../config/firebaseConfig';
 
 export default function useAuth() {
 	// Handle user state changes
-	const [user, setUser] = useState(null);
+	const [user, setUser] = useState({});
 	const [loading, setLoading] = useState(true);
+	const [eror, setError] = useState(null);
 
 	useEffect(() => {
-		db.checkUserAuth((user) => {
-			setLoading(false);
-			setUser(user);
-		});
+		try {
+			db.checkUserAuth((user) => {
+				setLoading(false);
+				setUser(user);
+			});
+		} catch (e) {
+			setError(e);
+		}
 	}, []);
 
 	return [user, loading];

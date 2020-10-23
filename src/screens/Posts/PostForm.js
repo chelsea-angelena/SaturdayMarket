@@ -43,11 +43,9 @@ export default function PostForm() {
 	// const [category, setCategory] = useState('');
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [checked, setChecked] = useState(false);
+	const [error, setError] = useState(null);
 	const [location] = useLocation();
 	const navigation = useNavigation();
-	const [error, setError] = useState(null);
-
-	const { latitude, longitude } = location;
 
 	const toggleOverlay = () => {
 		setVisible(!visible);
@@ -62,7 +60,7 @@ export default function PostForm() {
 	// 	let location = useLocation();
 	// 	console.log(location, 'location');
 	// };
-
+	const { latitude, longitude } = location;
 	const user = useContext(UserContext);
 	let userId = user.uid;
 
@@ -75,12 +73,15 @@ export default function PostForm() {
 			setError(error);
 		} finally {
 			setIsSubmitting(false);
-			navigation.navigate('TabNavigator', 'PostsStack', {
+			navigation.navigate('PostsStack', {
 				screen: 'PostsListScreen',
 			});
 		}
 	};
 
+	if (!location) {
+		return <Text>Loading...</Text>;
+	}
 	return (
 		<>
 			<Formik

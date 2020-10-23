@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, View, Text } from 'react-native';
+import useLocation from '../../hooks/useLocation';
 import MapView, { Marker } from 'react-native-maps';
 
-
-export default function Map({ location }) {
-
+export default function Map() {
+	const [location] = useLocation();
 
 	if (!location) {
 		return <ActivityIndicator size='large' />;

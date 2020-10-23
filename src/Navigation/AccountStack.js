@@ -1,18 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home, ProfileScreen, EditProfile } from '../screens/Account';
-import ListItemDetails from '../screens/Posts/ListItemDetails';
-import UserProfileScreen from '../screens/Posts/UserProfileScreen';
+import { ProfileScreen, EditProfile } from '../screens/Account';
+// import ListItemDetails from '../screens/Posts/ListItemDetails';
+// import UserProfileScreen from '../screens/Posts/UserProfileScreen';
 const Stack = createStackNavigator();
 
 const AccountStack = ({ navigation }) => {
 	return (
 		<Stack.Navigator>
-			<Stack.Screen
-				name='Home'
-				component={Home}
-				options={{ title: 'Account' }}
-			/>
 			<Stack.Screen
 				name='ProfileScreen'
 				component={ProfileScreen}
@@ -23,7 +18,7 @@ const AccountStack = ({ navigation }) => {
 				component={EditProfile}
 				options={{ title: 'Edit Profile' }}
 			/>
-			<Stack.Screen
+			{/* <Stack.Screen
 				name='ListItemDetails'
 				component={ListItemDetails}
 				options={{ title: 'Details' }}
@@ -32,7 +27,7 @@ const AccountStack = ({ navigation }) => {
 				name='UserProfileScreen'
 				component={UserProfileScreen}
 				options={{ title: 'Details' }}
-			/>
+			/> */}
 		</Stack.Navigator>
 	);
 };

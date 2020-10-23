@@ -1,9 +1,8 @@
 import 'react-native-gesture-handler';
-import React, { useState, Component, Fragment } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button } from 'react-native-elements';
-import { Ionicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import FormInput from './FormInput';
@@ -13,6 +12,7 @@ import * as db from '../../config/firebaseConfig';
 import { useNavigation } from '@react-navigation/native';
 import Logo from '../../Atoms/Logo';
 import colors from '../../styles/colors';
+import SignInWithGoogle from './Google';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -38,7 +38,6 @@ const SignInScreen = () => {
 			const response = await db.loginWithEmail(email, password);
 			if (response.user) {
 				setUser(response);
-				// navigation.navigate('TabNav', { screen: 'PostsStack', screen:"PostsListScreen" });
 			}
 		} catch (error) {
 			setError(error.message);
@@ -104,6 +103,7 @@ const SignInScreen = () => {
 						</>
 					)}
 				</Formik>
+				{/* <SignInWithGoogle /> */}
 				<Button
 					title="Don't have an account? Sign Up"
 					onPress={goToSignup}
@@ -119,15 +119,11 @@ const SignInScreen = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		// flex: 1,
+		
 		backgroundColor: colors.white,
 		paddingTop: 15,
-		height:1000,
+		height: 1000,
 	},
-	// logoContainer: {
-	// 	marginBottom: 15,
-	// 	alignItems: 'center',
-	// },
 	buttonContainer: {
 		margin: 25,
 	},

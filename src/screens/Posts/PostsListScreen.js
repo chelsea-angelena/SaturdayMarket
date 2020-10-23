@@ -2,13 +2,10 @@ import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../../../App';
 import { ScrollView, StyleSheet, FlatList, View, Text } from 'react-native';
 import * as db from '../../config/firebaseConfig';
-
 import PostListItem from './PostListItem';
-import Screen from '../../Atoms/Screen';
 
 export default function PostsListScreen(props) {
 	const [posts, setPosts] = useState([]);
-
 	const user = useContext(UserContext);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(true);
@@ -63,6 +60,7 @@ export default function PostsListScreen(props) {
 	if (posts.length === 0) {
 		return <Text>No Lists....</Text>;
 	}
+	console.log(posts);
 	return (
 		<View style={styles.container}>
 			<FlatList
@@ -84,7 +82,6 @@ export default function PostsListScreen(props) {
 							phoneNumber={item.userData.phoneNumber}
 							userPhoto={item.userData.photoURL}
 							authorID={item.authorID}
-
 						/>
 					);
 				}}
